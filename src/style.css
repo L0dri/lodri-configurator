@@ -209,44 +209,82 @@ aside { display: grid; gap: 24px; align-content: start; }
   }
 }
 
-/* V7.1 — retour au vrai nuancier visuel, mais placé sous chaque étape. */
+/* V7.2 — vrai nuancier visible, sans menu déroulant couleur. */
+
 .colorSelect,
 .selectWithDot,
 .selectedDot {
-  display: none;
+  display: none !important;
 }
 
-.compactSwatches {
-  margin: 6px 0 18px;
+.realSwatchBlock {
+  background: #f8f4ee;
+  border: 1px solid #ece3d7;
+  border-radius: 22px;
   padding: 14px;
+  margin: 10px 0 18px;
 }
 
-.compactSwatches .swatches {
-  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
-  gap: 8px;
+.realSwatchTitle {
+  font-weight: 900;
+  color: #6f665c;
+  margin-bottom: 12px;
 }
 
-.compactSwatches .swatch {
-  min-height: 42px;
-  padding: 8px;
+.realSwatchGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  gap: 10px;
 }
 
-.compactSwatches .swatchDot {
-  width: 22px;
-  height: 22px;
+.realSwatch {
+  background: white;
+  border: 1px solid #e5ded4;
+  color: #2b2927;
+  border-radius: 16px;
+  padding: 10px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  justify-content: flex-start;
+  cursor: pointer;
 }
 
-.compactSwatches .swatchName {
-  font-size: 12px;
+.realSwatch.selected {
+  outline: 3px solid #252525;
+  outline-offset: 2px;
+}
+
+.realSwatchDot {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.2);
+  box-shadow: inset 0 0 0 4px rgba(255,255,255,.18);
+  flex: 0 0 auto;
+}
+
+.realSwatchDot.translucent {
+  opacity: .78;
+  box-shadow: inset 0 0 10px rgba(255,255,255,.75), 0 0 14px rgba(255,210,120,.24);
+}
+
+.realSwatchName {
+  font-size: 13px;
+  font-weight: 800;
   line-height: 1.1;
+  text-align: left;
 }
 
-.compactSwatches .swatchNote {
+.realSwatchNote {
+  margin: 10px 0 0;
+  color: #756b60;
   font-size: 13px;
 }
 
 @media (max-width: 700px) {
-  .compactSwatches .swatches {
+  .realSwatchGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

@@ -572,26 +572,26 @@ function PreviewImage({ item, folder, color, stacked = 1, label }) {
 
 function SwatchPicker({ title, items, selected, onSelect }) {
   return (
-    <div className="swatchBlock compactSwatches">
-      <div className="swatchTitle">{title}</div>
-      <div className="swatches">
+    <div className="realSwatchBlock">
+      <div className="realSwatchTitle">{title}</div>
+      <div className="realSwatchGrid">
         {items.map(item => (
           <button
             key={item.id}
             type="button"
-            className={`swatch ${selected.id === item.id ? 'active' : ''}`}
+            className={`realSwatch ${selected.id === item.id ? 'selected' : ''}`}
             onClick={() => onSelect(item)}
             title={item.note || item.name}
           >
             <span
-              className={`swatchDot ${item.id.includes('translucide') ? 'translucent' : ''}`}
+              className={`realSwatchDot ${item.id.includes('translucide') ? 'translucent' : ''}`}
               style={{ backgroundColor: item.hex }}
             />
-            <span className="swatchName">{item.name}</span>
+            <span className="realSwatchName">{item.name}</span>
           </button>
         ))}
       </div>
-      <p className="swatchNote">{selected.note || selected.name}</p>
+      <p className="realSwatchNote">{selected.note || selected.name}</p>
     </div>
   );
 }
