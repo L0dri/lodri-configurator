@@ -672,7 +672,7 @@ function TintedCanvas({ src, color, className, alt }) {
         const bgDistance = distance(p, bg);
 
         // Make background transparent. Tolerance is generous because screenshots have antialiasing.
-        if (p.a < 10 || bgDistance < 34 || brightness < 12) {
+        if (p.a < 10 || bgDistance < 12 || brightness < 8) {
           data[i + 3] = 0;
           continue;
         }
@@ -700,6 +700,7 @@ function TintedCanvas({ src, color, className, alt }) {
 }
 
 
+
 function PreviewImage({ item, folder, color, stacked = 1, label }) {
   const count = Math.max(1, stacked || 1);
   const imageUrl = `/previews/${folder}/${item.image}`;
@@ -708,13 +709,19 @@ function PreviewImage({ item, folder, color, stacked = 1, label }) {
     <div className={`previewItem stacked stacked-${count}`}>
       <div className="imageStack">
         {Array.from({ length: count }).map((_, index) => (
-          <TintedCanvas
-            key={`${index}-${color.hex}-${imageUrl}`}
-            className={`previewCanvas module-${index + 1}`}
-            src={imageUrl}
-            color={color}
-            alt={label}
-          />
+          <div key={`${index}-${color.hex}-${imageUrl}`} className={`previewLayer module-${index + 1}`}>
+            <img
+              className="previewOriginal"
+              src={imageUrl}
+              alt={label}
+            />
+            <TintedCanvas
+              className="previewCanvasOverlay"
+              src={imageUrl}
+              color={color}
+              alt={label}
+            />
+          </div>
         ))}
       </div>
       <span>{label}</span>
