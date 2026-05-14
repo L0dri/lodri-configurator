@@ -554,12 +554,18 @@ function PreviewImage({ item, folder, color, stacked = 1, label }) {
     <div className={`previewItem stacked stacked-${count}`}>
       <div className="imageStack">
         {Array.from({ length: count }).map((_, index) => (
-          <img
+          <div
             key={index}
-            className={`previewImg module-${index + 1}`}
-            src={`/previews/${folder}/${item.image}`}
-            alt={label}
-          />
+            className={`previewColorWrap module-${index + 1}`}
+            style={{ '--preview-color': color.hex }}
+          >
+            <img
+              className="previewImg"
+              src={`/previews/${folder}/${item.image}`}
+              alt={label}
+            />
+            <span className="colorOverlay" />
+          </div>
         ))}
       </div>
       <span>{label}</span>
@@ -698,7 +704,10 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
             </div>
             {filter.image && (
               <div className="filterPreview">
-                <img src={filter.image} alt={filter.name} />
+                <div className="filterColorWrap" style={{ '--preview-color': filterColor.hex }}>
+                  <img src={filter.image} alt={filter.name} />
+                  <span className="colorOverlay" />
+                </div>
                 <div>
                   <strong>{filter.name}</strong>
                   <span>{filterColor.name}</span>
