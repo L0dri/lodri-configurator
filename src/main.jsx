@@ -610,11 +610,17 @@ function hexToRgb(hex) {
   };
 }
 
-function colorDistance(a, b) {
-  const dr = a.r - b.r;
-  const dg = a.g - b.g;
-  const db = a.b - b.b;
-  return Math.sqrt(dr * dr + dg * dg + db * db);
+function getPixel(data, width, x, y) {
+  const idx = (y * width + x) * 4;
+  return { r: data[idx], g: data[idx + 1], b: data[idx + 2], a: data[idx + 3] };
+}
+
+function distance(a, b) {
+  return Math.sqrt(
+    Math.pow(a.r - b.r, 2) +
+    Math.pow(a.g - b.g, 2) +
+    Math.pow(a.b - b.b, 2)
+  );
 }
 
 function TintedCanvas({ src, color, className, alt }) {
@@ -627,7 +633,7 @@ function TintedCanvas({ src, color, className, alt }) {
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     const img = new Image();
     img.crossOrigin = 'anonymous';
-    img.src = `${src}?v=82`;
+    img.src = src;
 
     img.onload = () => {
       const maxSize = 520;
@@ -638,7 +644,7 @@ function TintedCanvas({ src, color, className, alt }) {
       canvas.width = width;
       canvas.height = height;
       canvas.style.width = '100%';
-      canvas.style.height = '100%';
+      canvas.style.height = '185px';
 
       ctx.clearRect(0, 0, width, height);
       ctx.drawImage(img, 0, 0, width, height);
@@ -647,46 +653,37 @@ function TintedCanvas({ src, color, className, alt }) {
       const data = imageData.data;
       const rgb = hexToRgb(color.hex);
 
-      // On estime la couleur du fond avec les 4 coins de l’image.
-      const corners = [
-        0,
-        (width - 1) * 4,
-        ((height - 1) * width) * 4,
-        ((height - 1) * width + (width - 1)) * 4
+      // Background estimate from corners.
+      const bgPixels = [
+        getPixel(data, width, 0, 0),
+        getPixel(data, width, width - 1, 0),
+        getPixel(data, width, 0, height - 1),
+        getPixel(data, width, width - 1, height - 1)
       ];
-
-      const bg = corners.reduce(
-        (acc, idx) => ({
-          r: acc.r + data[idx],
-          g: acc.g + data[idx + 1],
-          b: acc.b + data[idx + 2]
-        }),
-        { r: 0, g: 0, b: 0 }
-      );
-
-      bg.r = bg.r / corners.length;
-      bg.g = bg.g / corners.length;
-      bg.b = bg.b / corners.length;
+      const bg = bgPixels.reduce((acc, p) => ({
+        r: acc.r + p.r / bgPixels.length,
+        g: acc.g + p.g / bgPixels.length,
+        b: acc.b + p.b / bgPixels.length
+      }), { r: 0, g: 0, b: 0 });
 
       for (let i = 0; i < data.length; i += 4) {
-        const original = { r: data[i], g: data[i + 1], b: data[i + 2] };
-        const alpha = data[i + 3];
-        const dist = colorDistance(original, bg);
-        const brightness = (original.r + original.g + original.b) / 3;
+        const p = { r: data[i], g: data[i + 1], b: data[i + 2], a: data[i + 3] };
+        const brightness = (p.r + p.g + p.b) / 3;
+        const bgDistance = distance(p, bg);
 
-        // Si le pixel ressemble au fond, on le rend transparent.
-        if (dist < 18 || alpha < 10) {
+        // Make background transparent. Tolerance is generous because screenshots have antialiasing.
+        if (p.a < 10 || bgDistance < 34 || brightness < 12) {
           data[i + 3] = 0;
           continue;
         }
 
-        // On garde les ombres/reliefs de l’objet.
-        const shade = Math.max(0.34, Math.min(1.35, brightness / 165));
+        // Preserve object shading.
+        const shade = Math.max(0.32, Math.min(1.35, brightness / 170));
 
         data[i] = Math.min(255, Math.round(rgb.r * shade));
         data[i + 1] = Math.min(255, Math.round(rgb.g * shade));
         data[i + 2] = Math.min(255, Math.round(rgb.b * shade));
-        data[i + 3] = Math.min(255, Math.round(alpha * 0.98));
+        data[i + 3] = Math.min(255, Math.round(p.a * 0.98));
       }
 
       ctx.putImageData(imageData, 0, 0);
@@ -702,6 +699,7 @@ function TintedCanvas({ src, color, className, alt }) {
   return <canvas ref={canvasRef} className={className} aria-label={alt} role="img" />;
 }
 
+
 function PreviewImage({ item, folder, color, stacked = 1, label }) {
   const count = Math.max(1, stacked || 1);
   const imageUrl = `/previews/${folder}/${item.image}`;
@@ -711,7 +709,7 @@ function PreviewImage({ item, folder, color, stacked = 1, label }) {
       <div className="imageStack">
         {Array.from({ length: count }).map((_, index) => (
           <TintedCanvas
-            key={`${index}-${color.hex}`}
+            key={`${index}-${color.hex}-${imageUrl}`}
             className={`previewCanvas module-${index + 1}`}
             src={imageUrl}
             color={color}
