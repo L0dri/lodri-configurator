@@ -290,3 +290,25 @@ aside { display: grid; gap: 24px; align-content: start; }
   color: #756b60;
   font-size: 13px;
 }
+
+/* V7.6 — câble en choix simple, sans pipette. */
+.cableColorSelect {
+  display: grid;
+  gap: 8px;
+  font-weight: 700;
+  color: #6f665c;
+  margin-bottom: 18px;
+}
+
+.cableSelectRow {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.cableColorSelect small {
+  color: #756b60;
+  font-size: 13px;
+  font-weight: 500;
+}

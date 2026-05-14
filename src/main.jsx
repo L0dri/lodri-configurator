@@ -604,6 +604,22 @@ function ColorPicker({ title, selected, onSelect }) {
   );
 }
 
+
+function CableColorSelect({ title, items, selected, onSelect }) {
+  return (
+    <label className="cableColorSelect">
+      {title}
+      <div className="cableSelectRow">
+        <span className="selectedDot" style={{ backgroundColor: selected.hex }} />
+        <select value={selected.id} onChange={e => onSelect(items.find(item => item.id === e.target.value))}>
+          {items.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
+        </select>
+      </div>
+      <small>Couleur textile indicative, à confirmer selon disponibilité.</small>
+    </label>
+  );
+}
+
 function MiniPreview({ title, item, folder, color, stacked = 1 }) {
   return (
     <div className="miniPreview">
@@ -644,7 +660,7 @@ function App() {
   const summary = useMemo(() => `Composition Lodri / Kumo
 Base : ${base.clientName} ${base.size} (${base.ref}, Ø ${base.diameter}, H ${base.height}) — ${euro(base.price)} · coloris ${baseColor.name} (${baseColor.hex})
 Abat-jour : ${shade.clientName} ${shade.size} (${shade.ref}, Ø ${shade.diameter}, H ${shade.height}) — ${euro(shade.price)} · coloris ${shadeColor.name} (${shadeColor.hex})
-Cordon : ${cordon.name} — ${euro(cordon.price)} · coloris ${cordColor.name} (${cordColor.hex})
+Cordon : ${cordon.name} — ${euro(cordon.price)} · coloris ${cordColor.name}
 Filtre : ${filter.name} — ${euro(filter.price)}${filter.id !== 'none' ? ` · coloris ${filterColor.name} (${filterColor.hex})` : ''}
 Total public TVAC : ${euro(total)}
 Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, filterColor, cordColor, total]);
@@ -725,7 +741,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
                 {cordons.map(x => <option key={x.id} value={x.id}>{x.name} · {euro(x.price)}</option>)}
               </select>
             </label>
-            <ColorPicker title="Couleur du cordon" selected={cordColor} onSelect={setCordColor} />
+            <CableColorSelect title="Couleur du cordon" items={cordColors} selected={cordColor} onSelect={setCordColor} />
           </div>
           <div className="fields">
             <label>Filtre lumineux
@@ -758,7 +774,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
           <div className="line"><span>Abat-jour {shade.clientName} {shade.size}</span><strong>{euro(shade.price)}</strong></div>
           <div className="line subtle"><span>Couleur abat-jour</span><strong>{shadeColor.name} · {shadeColor.hex}</strong></div>
           <div className="line"><span>{cordon.name}</span><strong>{euro(cordon.price)}</strong></div>
-          <div className="line subtle"><span>Couleur cordon</span><strong>{cordColor.name} · {cordColor.hex}</strong></div>
+          <div className="line subtle"><span>Couleur cordon</span><strong>{cordColor.name}</strong></div>
           <div className="line"><span>{filter.name}</span><strong>{euro(filter.price)}</strong></div>
           {filter.id !== 'none' && <div className="line subtle"><span>Couleur filtre</span><strong>{filterColor.name} · {filterColor.hex}</strong></div>}
           <div className="infoNote">Le prix final sera confirmé ensemble selon les couleurs, matières et finitions choisies.</div>
