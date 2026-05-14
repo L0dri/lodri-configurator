@@ -683,7 +683,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
               <h2>Repères atelier</h2>
               <p><strong>Base :</strong> {base.family} · {base.ref} · Ø {base.diameter} · H {base.height} · taille {base.size} · {base.tier}</p>
               <p><strong>Abat-jour :</strong> {shade.family} · {shade.ref} · Ø {shade.diameter} · H {shade.height} · taille {shade.size} · {shade.tier}</p>
-              <p><strong>Note :</strong> “H à confirmer” = hauteur non reprise dans le nom du fichier. À compléter ensuite depuis Bambu Studio/Fusion.</p>
+              <p><strong>Note :</strong> Les dimensions affichées servent de repères atelier. Les proportions et couleurs restent indicatives et peuvent légèrement varier selon l’impression et le filament utilisé.</p>
             </div>
           )}
         </div>
