@@ -10,6 +10,7 @@ const bases = [
     "clientName": "Cylindre",
     "ref": "D80",
     "diameter": "80 mm",
+    "height": "à confirmer",
     "size": "S",
     "tier": "Classique",
     "price": 39,
@@ -20,6 +21,7 @@ const bases = [
     "clientName": "Cylindre",
     "ref": "D90",
     "diameter": "90 mm",
+    "height": "à confirmer",
     "size": "S",
     "tier": "Classique",
     "price": 39,
@@ -30,6 +32,7 @@ const bases = [
     "clientName": "Cylindre",
     "ref": "D100",
     "diameter": "100 mm",
+    "height": "à confirmer",
     "size": "M",
     "tier": "Classique",
     "price": 49,
@@ -40,6 +43,7 @@ const bases = [
     "clientName": "Cylindre",
     "ref": "D125",
     "diameter": "125 mm",
+    "height": "à confirmer",
     "size": "M+",
     "tier": "Classique",
     "price": 59,
@@ -50,6 +54,7 @@ const bases = [
     "clientName": "Cylindre",
     "ref": "D150",
     "diameter": "150 mm",
+    "height": "à confirmer",
     "size": "L",
     "tier": "Classique",
     "price": 69,
@@ -60,6 +65,7 @@ const bases = [
     "clientName": "Cône",
     "ref": "D80",
     "diameter": "80 mm",
+    "height": "à confirmer",
     "size": "S",
     "tier": "Classique",
     "price": 39,
@@ -70,6 +76,7 @@ const bases = [
     "clientName": "Cône",
     "ref": "D90",
     "diameter": "90 mm",
+    "height": "à confirmer",
     "size": "S",
     "tier": "Classique",
     "price": 39,
@@ -80,6 +87,7 @@ const bases = [
     "clientName": "Cône",
     "ref": "D100",
     "diameter": "100 mm",
+    "height": "à confirmer",
     "size": "M",
     "tier": "Classique",
     "price": 55,
@@ -90,6 +98,7 @@ const bases = [
     "clientName": "Cône",
     "ref": "D125",
     "diameter": "125 mm",
+    "height": "à confirmer",
     "size": "M+",
     "tier": "Classique",
     "price": 65,
@@ -100,6 +109,7 @@ const bases = [
     "clientName": "Cône",
     "ref": "D150",
     "diameter": "150 mm",
+    "height": "à confirmer",
     "size": "L",
     "tier": "Classique",
     "price": 75,
@@ -110,6 +120,7 @@ const bases = [
     "clientName": "Cône large",
     "ref": "D80",
     "diameter": "80 mm",
+    "height": "à confirmer",
     "size": "S",
     "tier": "Classique +",
     "price": 45,
@@ -120,6 +131,7 @@ const bases = [
     "clientName": "Cône large",
     "ref": "D100",
     "diameter": "100 mm",
+    "height": "à confirmer",
     "size": "M",
     "tier": "Classique +",
     "price": 59,
@@ -130,6 +142,7 @@ const bases = [
     "clientName": "Cône large",
     "ref": "D125",
     "diameter": "125 mm",
+    "height": "à confirmer",
     "size": "L",
     "tier": "Classique +",
     "price": 79,
@@ -140,6 +153,7 @@ const bases = [
     "clientName": "Arche",
     "ref": "D100 H75",
     "diameter": "100 mm",
+    "height": "75 mm",
     "size": "S",
     "tier": "Design",
     "price": 49,
@@ -150,6 +164,7 @@ const bases = [
     "clientName": "Arche",
     "ref": "D100 H85",
     "diameter": "100 mm",
+    "height": "85 mm",
     "size": "S",
     "tier": "Design",
     "price": 49,
@@ -160,6 +175,7 @@ const bases = [
     "clientName": "Arche",
     "ref": "D100 H95",
     "diameter": "100 mm",
+    "height": "95 mm",
     "size": "S",
     "tier": "Design",
     "price": 49,
@@ -170,6 +186,7 @@ const bases = [
     "clientName": "Arche",
     "ref": "D100 H105",
     "diameter": "100 mm",
+    "height": "105 mm",
     "size": "M",
     "tier": "Design",
     "price": 59,
@@ -180,6 +197,7 @@ const bases = [
     "clientName": "Arche",
     "ref": "D100 H115",
     "diameter": "100 mm",
+    "height": "115 mm",
     "size": "M",
     "tier": "Design",
     "price": 59,
@@ -190,6 +208,7 @@ const bases = [
     "clientName": "Arche",
     "ref": "D100 H140",
     "diameter": "100 mm",
+    "height": "140 mm",
     "size": "L",
     "tier": "Design",
     "price": 75,
@@ -200,6 +219,7 @@ const bases = [
     "clientName": "Arche",
     "ref": "D100 H165",
     "diameter": "100 mm",
+    "height": "165 mm",
     "size": "XL",
     "tier": "Design",
     "price": 89,
@@ -210,6 +230,7 @@ const bases = [
     "clientName": "Arche",
     "ref": "D120",
     "diameter": "120 mm",
+    "height": "à confirmer",
     "size": "M+",
     "tier": "Design",
     "price": 69,
@@ -220,6 +241,7 @@ const bases = [
     "clientName": "Arche",
     "ref": "D150",
     "diameter": "150 mm",
+    "height": "à confirmer",
     "size": "L",
     "tier": "Design",
     "price": 89,
@@ -230,6 +252,7 @@ const bases = [
     "clientName": "Nuage",
     "ref": "Collection standard",
     "diameter": "variable",
+    "height": "à confirmer",
     "size": "M",
     "tier": "Signature douce",
     "price": 75,
@@ -240,6 +263,7 @@ const bases = [
     "clientName": "Totem",
     "ref": "D130",
     "diameter": "130 mm",
+    "height": "à confirmer",
     "size": "M",
     "tier": "Signature",
     "price": 79,
@@ -250,6 +274,7 @@ const bases = [
     "clientName": "Totem",
     "ref": "D200 H65",
     "diameter": "200 mm",
+    "height": "65 mm",
     "size": "L",
     "tier": "Signature",
     "price": 95,
@@ -260,6 +285,7 @@ const bases = [
     "clientName": "Edamame Solo",
     "ref": "Solo",
     "diameter": "160 mm",
+    "height": "1 module",
     "size": "M",
     "tier": "Signature modulaire",
     "price": 69,
@@ -271,6 +297,7 @@ const bases = [
     "clientName": "Edamame Duo",
     "ref": "Duo",
     "diameter": "160 mm",
+    "height": "2 modules",
     "size": "L",
     "tier": "Signature modulaire",
     "price": 85,
@@ -282,6 +309,7 @@ const bases = [
     "clientName": "Edamame Trio",
     "ref": "Trio",
     "diameter": "160 mm",
+    "height": "3 modules",
     "size": "XL",
     "tier": "Signature modulaire",
     "price": 95,
@@ -295,6 +323,7 @@ const shades = [
     "clientName": "Squash",
     "ref": "D160",
     "diameter": "160 mm",
+    "height": "à confirmer",
     "size": "M",
     "tier": "Doux",
     "price": 69,
@@ -305,6 +334,7 @@ const shades = [
     "clientName": "Honeycomb",
     "ref": "D175",
     "diameter": "175 mm",
+    "height": "à confirmer",
     "size": "M",
     "tier": "Graphique",
     "price": 79,
@@ -315,6 +345,7 @@ const shades = [
     "clientName": "Honeycomb Tall",
     "ref": "Tall D210",
     "diameter": "210 mm",
+    "height": "à confirmer",
     "size": "L",
     "tier": "Graphique +",
     "price": 99,
@@ -325,6 +356,7 @@ const shades = [
     "clientName": "Tree",
     "ref": "D175",
     "diameter": "175 mm",
+    "height": "à confirmer",
     "size": "M",
     "tier": "Organique",
     "price": 85,
@@ -335,6 +367,7 @@ const shades = [
     "clientName": "Tree inversé",
     "ref": "Inverted 3 segments",
     "diameter": "175 mm",
+    "height": "150 mm",
     "size": "M",
     "tier": "Organique",
     "price": 85,
@@ -345,6 +378,7 @@ const shades = [
     "clientName": "Tree inversé haut",
     "ref": "Inverted Tall D200",
     "diameter": "200 mm",
+    "height": "à confirmer",
     "size": "L",
     "tier": "Organique +",
     "price": 105,
@@ -355,6 +389,7 @@ const shades = [
     "clientName": "Tree large",
     "ref": "Wide 4 segments D240",
     "diameter": "240 mm",
+    "height": "200 mm",
     "size": "XL",
     "tier": "Organique premium",
     "price": 119,
@@ -365,6 +400,7 @@ const shades = [
     "clientName": "Tree inversé large",
     "ref": "Inverted Wide D240",
     "diameter": "240 mm",
+    "height": "200 mm",
     "size": "XL",
     "tier": "Organique premium",
     "price": 119,
@@ -375,6 +411,7 @@ const shades = [
     "clientName": "Totem",
     "ref": "D130",
     "diameter": "130 mm",
+    "height": "à confirmer",
     "size": "M",
     "tier": "Sculptural",
     "price": 89,
@@ -385,6 +422,7 @@ const shades = [
     "clientName": "Totem fin haut",
     "ref": "Thin Tall D150",
     "diameter": "150 mm",
+    "height": "à confirmer",
     "size": "L fin",
     "tier": "Sculptural",
     "price": 99,
@@ -395,6 +433,7 @@ const shades = [
     "clientName": "Totem haut",
     "ref": "Tall D200",
     "diameter": "200 mm",
+    "height": "à confirmer",
     "size": "L",
     "tier": "Sculptural +",
     "price": 119,
@@ -405,6 +444,7 @@ const shades = [
     "clientName": "Totem large",
     "ref": "Wide D200",
     "diameter": "200 mm",
+    "height": "à confirmer",
     "size": "L",
     "tier": "Sculptural +",
     "price": 119,
@@ -415,6 +455,7 @@ const shades = [
     "clientName": "Tissé",
     "ref": "Collection standard",
     "diameter": "variable",
+    "height": "à confirmer",
     "size": "L premium",
     "tier": "Texture premium",
     "price": 129,
@@ -425,6 +466,7 @@ const shades = [
     "clientName": "Edamame",
     "ref": "D160",
     "diameter": "160 mm",
+    "height": "à confirmer",
     "size": "L premium",
     "tier": "Signature organique",
     "price": 119,
@@ -433,23 +475,28 @@ const shades = [
 ];
 
 const baseColors = [
-  { id: 'craie', name: 'Craie', hex: '#F3EFE7', note: 'blanc cassé mat' },
-  { id: 'lin', name: 'Lin', hex: '#D8C8AE', note: 'beige clair' },
-  { id: 'sable', name: 'Sable', hex: '#C9A978', note: 'beige chaud' },
-  { id: 'terre-cuite', name: 'Terre cuite', hex: '#B86442', note: 'terracotta' },
-  { id: 'sauge', name: 'Sauge', hex: '#A6B59A', note: 'vert doux' },
-  { id: 'anthracite', name: 'Anthracite', hex: '#343536', note: 'gris foncé' },
-  { id: 'noir', name: 'Noir', hex: '#171717', note: 'noir mat' },
+  { id: 'blanc', name: 'Blanc', hex: '#F4F1EA', note: 'neutre lumineux' },
+  { id: 'noir', name: 'Noir', hex: '#171717', note: 'sobre et graphique' },
+  { id: 'bleu-majorelle', name: 'Bleu Majorelle', hex: '#2654D9', note: 'bleu vif signature' },
+  { id: 'orange', name: 'Orange', hex: '#F06A2A', note: 'chaud et pop' },
+  { id: 'rose', name: 'Rose', hex: '#E8A6B8', note: 'doux et coloré' },
+  { id: 'bleu-fonce', name: 'Bleu foncé', hex: '#142B55', note: 'profond et élégant' },
+  { id: 'terracotta', name: 'Terracotta', hex: '#B65F43', note: 'terre cuite' },
+  { id: 'brun', name: 'Brun', hex: '#6B4A35', note: 'chaud et naturel' },
+  { id: 'beige', name: 'Beige', hex: '#D8C3A3', note: 'clair et doux' },
+  { id: 'jaune', name: 'Jaune', hex: '#F2C84B', note: 'lumineux' },
 ];
 
-const lightColors = [
-  { id: 'givre', name: 'Givre', hex: '#F6F4EE', note: 'blanc translucide' },
-  { id: 'ivoire', name: 'Ivoire', hex: '#F1E2C3', note: 'crème lumineux' },
-  { id: 'miel', name: 'Miel', hex: '#DFA64B', note: 'ambre doux' },
-  { id: 'ambre', name: 'Ambre', hex: '#C46B35', note: 'orange chaud lumineux' },
-  { id: 'fume', name: 'Fumé', hex: '#81776D', note: 'gris translucide' },
-  { id: 'glacier', name: 'Glacier', hex: '#B9D8E8', note: 'bleu translucide léger' },
+const shadeColors = [
+  { id: 'blanc', name: 'Blanc', hex: '#F4F1EA', note: 'opaque ou très clair' },
+  { id: 'translucide-blanc', name: 'Translucide blanc', hex: '#F6F4EE', note: 'diffusion douce' },
+  { id: 'translucide-rose', name: 'Translucide rose', hex: '#F0A9BE', note: 'lumière douce rosée' },
+  { id: 'translucide-vert', name: 'Translucide vert', hex: '#A9C9A3', note: 'lumière fraîche' },
+  { id: 'translucide-jaune', name: 'Translucide jaune', hex: '#F3D45C', note: 'lumière chaude' },
+  { id: 'translucide-bleu', name: 'Translucide bleu', hex: '#A9D4F2', note: 'lumière froide légère' },
 ];
+
+const filterColors = shadeColors.filter(c => c.id !== 'blanc');
 
 const cordColors = [
   { id: 'noir', name: 'Noir', hex: '#171717' },
@@ -489,7 +536,7 @@ function SwatchPicker({ title, items, selected, onSelect, type = 'solid' }) {
             title={item.note || item.name}
           >
             <span
-              className={`swatchDot ${type === 'translucent' ? 'translucent' : ''}`}
+              className={`swatchDot ${type === 'translucent' || item.id.includes('translucide') ? 'translucent' : ''}`}
               style={{ backgroundColor: item.hex }}
             />
             <span className="swatchName">{item.name}</span>
@@ -512,10 +559,6 @@ function PreviewImage({ item, folder, color, stacked = 1, label }) {
             className={`previewImg module-${index + 1}`}
             src={`/previews/${folder}/${item.image}`}
             alt={label}
-            style={{
-              filter: `sepia(0.15) saturate(0.8) drop-shadow(0 10px 15px rgba(0,0,0,.08))`,
-              opacity: 0.96
-            }}
           />
         ))}
       </div>
@@ -532,9 +575,9 @@ function App() {
   const [shadeRef, setShadeRef] = useState('D175');
   const [cordonId, setCordonId] = useState('standard');
   const [filterId, setFilterId] = useState('none');
-  const [baseColor, setBaseColor] = useState(baseColors[1]);
-  const [shadeColor, setShadeColor] = useState(lightColors[1]);
-  const [filterColor, setFilterColor] = useState(lightColors[2]);
+  const [baseColor, setBaseColor] = useState(baseColors[8]);
+  const [shadeColor, setShadeColor] = useState(shadeColors[1]);
+  const [filterColor, setFilterColor] = useState(filterColors[2]);
   const [cordColor, setCordColor] = useState(cordColors[0]);
   const [showWorkshop, setShowWorkshop] = useState(true);
   const [copied, setCopied] = useState(false);
@@ -548,8 +591,8 @@ function App() {
   const total = base.price + shade.price + cordon.price + filter.price;
 
   const summary = useMemo(() => `Composition Lodri / Kumo
-Base : ${base.clientName} ${base.size} (${base.ref}, Ø ${base.diameter}) — ${euro(base.price)} · coloris ${baseColor.name}
-Abat-jour : ${shade.clientName} ${shade.size} (${shade.ref}, Ø ${shade.diameter}) — ${euro(shade.price)} · coloris ${shadeColor.name}
+Base : ${base.clientName} ${base.size} (${base.ref}, Ø ${base.diameter}, H ${base.height}) — ${euro(base.price)} · coloris ${baseColor.name}
+Abat-jour : ${shade.clientName} ${shade.size} (${shade.ref}, Ø ${shade.diameter}, H ${shade.height}) — ${euro(shade.price)} · coloris ${shadeColor.name}
 Cordon : ${cordon.name} — ${euro(cordon.price)} · coloris ${cordColor.name}
 Filtre : ${filter.name} — ${euro(filter.price)}${filter.id !== 'none' ? ` · coloris ${filterColor.name}` : ''}
 Total public TVAC : ${euro(total)}
@@ -577,7 +620,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
     <main>
       <section className="hero">
         <div>
-          <p className="pill">Configurateur maison · V5</p>
+          <p className="pill">Configurateur maison · V6</p>
           <h1>Composer une lampe Lodri / Kumo</h1>
           <p>Une base, un abat-jour, un cordon, éventuellement un filtre lumineux. Les prix sont publics TVAC et cohérents entre boutique, site et vente directe.</p>
         </div>
@@ -595,7 +638,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
             </label>
             <label>Format
               <select value={base.ref} onChange={e => setBaseRef(e.target.value)}>
-                {baseOptions.map(x => <option key={x.ref} value={x.ref}>{x.clientName} · {x.ref} · {x.size} · {euro(x.price)}</option>)}
+                {baseOptions.map(x => <option key={x.ref} value={x.ref}>{x.clientName} · {x.ref} · Ø {x.diameter} · H {x.height} · {x.size} · {euro(x.price)}</option>)}
               </select>
             </label>
           </div>
@@ -610,11 +653,11 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
             </label>
             <label>Format
               <select value={shade.ref} onChange={e => setShadeRef(e.target.value)}>
-                {shadeOptions.map(x => <option key={x.ref} value={x.ref}>{x.clientName} · {x.ref} · {x.size} · {euro(x.price)}</option>)}
+                {shadeOptions.map(x => <option key={x.ref} value={x.ref}>{x.clientName} · {x.ref} · Ø {x.diameter} · H {x.height} · {x.size} · {euro(x.price)}</option>)}
               </select>
             </label>
           </div>
-          <SwatchPicker title="Couleur de l’abat-jour" items={lightColors} selected={shadeColor} onSelect={setShadeColor} type="translucent" />
+          <SwatchPicker title="Couleur de l’abat-jour" items={shadeColors} selected={shadeColor} onSelect={setShadeColor} type="translucent" />
 
           <h2>3. Finitions</h2>
           <div className="fields">
@@ -632,15 +675,15 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
 
           <SwatchPicker title="Couleur du cordon" items={cordColors} selected={cordColor} onSelect={setCordColor} />
           {filter.id !== 'none' && (
-            <SwatchPicker title="Couleur du filtre translucide" items={lightColors} selected={filterColor} onSelect={setFilterColor} type="translucent" />
+            <SwatchPicker title="Couleur du filtre translucide" items={filterColors} selected={filterColor} onSelect={setFilterColor} type="translucent" />
           )}
 
           {showWorkshop && (
             <div className="atelier">
               <h2>Repères atelier</h2>
-              <p><strong>Base :</strong> {base.family} · {base.ref} · Ø {base.diameter} · taille {base.size} · {base.tier}</p>
-              <p><strong>Abat-jour :</strong> {shade.family} · {shade.ref} · Ø {shade.diameter} · taille {shade.size} · {shade.tier}</p>
-              <p><strong>Note :</strong> Edamame est affiché comme Solo, Duo ou Trio côté client.</p>
+              <p><strong>Base :</strong> {base.family} · {base.ref} · Ø {base.diameter} · H {base.height} · taille {base.size} · {base.tier}</p>
+              <p><strong>Abat-jour :</strong> {shade.family} · {shade.ref} · Ø {shade.diameter} · H {shade.height} · taille {shade.size} · {shade.tier}</p>
+              <p><strong>Note :</strong> “H à confirmer” = hauteur non reprise dans le nom du fichier. À compléter ensuite depuis Bambu Studio/Fusion.</p>
             </div>
           )}
         </div>
@@ -668,8 +711,10 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
           <div className="card">
             <h2>Composition</h2>
             <div className="line"><span>Base {base.clientName} {base.size}</span><strong>{euro(base.price)}</strong></div>
+            <div className="line subtle"><span>Dimensions base</span><strong>Ø {base.diameter} · H {base.height}</strong></div>
             <div className="line subtle"><span>Couleur base</span><strong>{baseColor.name}</strong></div>
             <div className="line"><span>Abat-jour {shade.clientName} {shade.size}</span><strong>{euro(shade.price)}</strong></div>
+            <div className="line subtle"><span>Dimensions abat-jour</span><strong>Ø {shade.diameter} · H {shade.height}</strong></div>
             <div className="line subtle"><span>Couleur abat-jour</span><strong>{shadeColor.name}</strong></div>
             <div className="line"><span>{cordon.name}</span><strong>{euro(cordon.price)}</strong></div>
             <div className="line subtle"><span>Couleur cordon</span><strong>{cordColor.name}</strong></div>
