@@ -12,7 +12,7 @@ const bases = [
     "size": "S",
     "tier": "Classique",
     "price": 39,
-    "note": "petite base simple"
+    "image": "cylinder-d80.png"
   },
   {
     "family": "Cylinder",
@@ -21,7 +21,7 @@ const bases = [
     "size": "S",
     "tier": "Classique",
     "price": 39,
-    "note": "petite base simple"
+    "image": "cylinder-d90.png"
   },
   {
     "family": "Cylinder",
@@ -30,7 +30,7 @@ const bases = [
     "size": "M",
     "tier": "Classique",
     "price": 49,
-    "note": "format standard"
+    "image": "cylinder-d100.png"
   },
   {
     "family": "Cylinder",
@@ -39,7 +39,7 @@ const bases = [
     "size": "M+",
     "tier": "Classique",
     "price": 59,
-    "note": "présence plus large"
+    "image": "cylinder-d125.png"
   },
   {
     "family": "Cylinder",
@@ -48,7 +48,7 @@ const bases = [
     "size": "L",
     "tier": "Classique",
     "price": 69,
-    "note": "grande base simple"
+    "image": "cylinder-d150.png"
   },
   {
     "family": "Cone",
@@ -57,7 +57,7 @@ const bases = [
     "size": "S",
     "tier": "Classique",
     "price": 39,
-    "note": "petite base contemporaine"
+    "image": "cone-d80.png"
   },
   {
     "family": "Cone",
@@ -66,7 +66,7 @@ const bases = [
     "size": "S",
     "tier": "Classique",
     "price": 39,
-    "note": "petite base contemporaine"
+    "image": "cone-d90.png"
   },
   {
     "family": "Cone",
@@ -75,7 +75,7 @@ const bases = [
     "size": "M",
     "tier": "Classique",
     "price": 55,
-    "note": "format standard"
+    "image": "cone-d100.png"
   },
   {
     "family": "Cone",
@@ -84,7 +84,7 @@ const bases = [
     "size": "M+",
     "tier": "Classique",
     "price": 65,
-    "note": "plus stable / plus présent"
+    "image": "cone-d125.png"
   },
   {
     "family": "Cone",
@@ -93,7 +93,7 @@ const bases = [
     "size": "L",
     "tier": "Classique",
     "price": 75,
-    "note": "grande base contemporaine"
+    "image": "cone-d150.png"
   },
   {
     "family": "Cone Wide",
@@ -102,7 +102,7 @@ const bases = [
     "size": "S",
     "tier": "Classique +",
     "price": 45,
-    "note": "plus stable qu’un petit cone"
+    "image": "cone-wide-d80.png"
   },
   {
     "family": "Cone Wide",
@@ -111,7 +111,7 @@ const bases = [
     "size": "M",
     "tier": "Classique +",
     "price": 59,
-    "note": "standard déco"
+    "image": "cone-wide-d100.png"
   },
   {
     "family": "Cone Wide",
@@ -120,7 +120,7 @@ const bases = [
     "size": "L",
     "tier": "Classique +",
     "price": 79,
-    "note": "large, très stable"
+    "image": "cone-wide-d125.png"
   },
   {
     "family": "Arch",
@@ -129,7 +129,7 @@ const bases = [
     "size": "S",
     "tier": "Design",
     "price": 49,
-    "note": "bas / compact"
+    "image": "arch-d100-h75.png"
   },
   {
     "family": "Arch",
@@ -138,7 +138,7 @@ const bases = [
     "size": "S",
     "tier": "Design",
     "price": 49,
-    "note": "compact"
+    "image": "arch-d100-h85.png"
   },
   {
     "family": "Arch",
@@ -147,7 +147,7 @@ const bases = [
     "size": "S",
     "tier": "Design",
     "price": 49,
-    "note": "compact élancé"
+    "image": "arch-d100-h95.png"
   },
   {
     "family": "Arch",
@@ -156,7 +156,7 @@ const bases = [
     "size": "M",
     "tier": "Design",
     "price": 59,
-    "note": "standard"
+    "image": "arch-d100-h105.png"
   },
   {
     "family": "Arch",
@@ -165,7 +165,7 @@ const bases = [
     "size": "M",
     "tier": "Design",
     "price": 59,
-    "note": "standard élancé"
+    "image": "arch-d100-h115.png"
   },
   {
     "family": "Arch",
@@ -174,7 +174,7 @@ const bases = [
     "size": "L",
     "tier": "Design",
     "price": 75,
-    "note": "haute"
+    "image": "arch-d100-h140.png"
   },
   {
     "family": "Arch",
@@ -183,7 +183,7 @@ const bases = [
     "size": "XL",
     "tier": "Design",
     "price": 89,
-    "note": "très haute"
+    "image": "arch-d100-h165.png"
   },
   {
     "family": "Arch",
@@ -192,7 +192,7 @@ const bases = [
     "size": "M+",
     "tier": "Design",
     "price": 69,
-    "note": "plus large"
+    "image": "arch-d120.png"
   },
   {
     "family": "Arch",
@@ -201,7 +201,7 @@ const bases = [
     "size": "L",
     "tier": "Design",
     "price": 89,
-    "note": "large / forte présence"
+    "image": "arch-d150.png"
   },
   {
     "family": "Cloud",
@@ -210,7 +210,7 @@ const bases = [
     "size": "M",
     "tier": "Signature douce",
     "price": 75,
-    "note": "organique / friendly"
+    "image": "cloud-collection-standard.png"
   },
   {
     "family": "Totem Base",
@@ -219,7 +219,7 @@ const bases = [
     "size": "M",
     "tier": "Signature",
     "price": 79,
-    "note": "sculptural"
+    "image": "totem-d130.png"
   },
   {
     "family": "Totem Base",
@@ -228,7 +228,7 @@ const bases = [
     "size": "L",
     "tier": "Signature",
     "price": 95,
-    "note": "large / statement"
+    "image": "totem-d200-h65.png"
   },
   {
     "family": "Edamame Base",
@@ -237,7 +237,7 @@ const bases = [
     "size": "M",
     "tier": "Signature modulaire",
     "price": 69,
-    "note": "module solo"
+    "image": "edamame-d160.png"
   },
   {
     "family": "Edamame Base",
@@ -246,7 +246,7 @@ const bases = [
     "size": "L",
     "tier": "Signature modulaire",
     "price": 85,
-    "note": "composition 2 modules"
+    "image": "edamame-d160.png"
   },
   {
     "family": "Edamame Base",
@@ -255,7 +255,7 @@ const bases = [
     "size": "XL",
     "tier": "Signature modulaire",
     "price": 95,
-    "note": "composition 3 modules"
+    "image": "edamame-d160.png"
   }
 ];
 const shades = [
@@ -266,7 +266,7 @@ const shades = [
     "size": "M",
     "tier": "Doux",
     "price": 69,
-    "note": "abat-jour arrondi accessible"
+    "image": "squash-d160.png"
   },
   {
     "family": "Honeycomb",
@@ -275,7 +275,7 @@ const shades = [
     "size": "M",
     "tier": "Graphique",
     "price": 79,
-    "note": "motif graphique standard"
+    "image": "honeycomb-d175.png"
   },
   {
     "family": "Honeycomb",
@@ -284,7 +284,7 @@ const shades = [
     "size": "L",
     "tier": "Graphique +",
     "price": 99,
-    "note": "plus haut / plus présent"
+    "image": "honeycomb-tall-d210.png"
   },
   {
     "family": "Tree",
@@ -293,7 +293,7 @@ const shades = [
     "size": "M",
     "tier": "Organique",
     "price": 85,
-    "note": "organique standard"
+    "image": "tree-d175.png"
   },
   {
     "family": "Tree",
@@ -302,7 +302,7 @@ const shades = [
     "size": "M",
     "tier": "Organique",
     "price": 85,
-    "note": "organique inversé"
+    "image": "tree-inverted-3-segments.png"
   },
   {
     "family": "Tree",
@@ -311,7 +311,7 @@ const shades = [
     "size": "L",
     "tier": "Organique +",
     "price": 105,
-    "note": "haut / sculptural"
+    "image": "tree-inverted-tall-d200.png"
   },
   {
     "family": "Tree",
@@ -320,7 +320,7 @@ const shades = [
     "size": "XL",
     "tier": "Organique premium",
     "price": 119,
-    "note": "large / statement"
+    "image": "tree-wide-4-segments-d240.png"
   },
   {
     "family": "Tree",
@@ -329,7 +329,7 @@ const shades = [
     "size": "XL",
     "tier": "Organique premium",
     "price": 119,
-    "note": "large inversé / statement"
+    "image": "tree-inverted-wide-d240.png"
   },
   {
     "family": "Totem Shade",
@@ -338,7 +338,7 @@ const shades = [
     "size": "M",
     "tier": "Sculptural",
     "price": 89,
-    "note": "vertical compact"
+    "image": "totem-d130.png"
   },
   {
     "family": "Totem Shade",
@@ -347,7 +347,7 @@ const shades = [
     "size": "L fin",
     "tier": "Sculptural",
     "price": 99,
-    "note": "fin / haut"
+    "image": "totem-thin-tall-d150.png"
   },
   {
     "family": "Totem Shade",
@@ -356,7 +356,7 @@ const shades = [
     "size": "L",
     "tier": "Sculptural +",
     "price": 119,
-    "note": "haut premium"
+    "image": "totem-tall-d200.png"
   },
   {
     "family": "Totem Shade",
@@ -365,7 +365,7 @@ const shades = [
     "size": "L",
     "tier": "Sculptural +",
     "price": 119,
-    "note": "large premium"
+    "image": "totem-wide-d200.png"
   },
   {
     "family": "Woven",
@@ -374,7 +374,7 @@ const shades = [
     "size": "L premium",
     "tier": "Texture premium",
     "price": 129,
-    "note": "effet tissé / plus haut de gamme"
+    "image": "woven-collection-standard.png"
   },
   {
     "family": "Edamame Shade",
@@ -383,19 +383,22 @@ const shades = [
     "size": "L premium",
     "tier": "Signature organique",
     "price": 119,
-    "note": "signature organique"
+    "image": "edamame-d160.png"
   }
 ];
+
 const cordons = [
   { id: 'standard', name: 'Cordon textile standard', price: 19 },
   { id: 'premium', name: 'Cordon textile premium', price: 29 },
   { id: 'none', name: 'Sans cordon', price: 0 }
 ];
+
 const filters = [
-  { id: 'none', name: 'Aucun filtre', price: 0 },
-  { id: 's', name: 'Glow Filter S', price: 12 },
-  { id: 'm', name: 'Glow Filter M', price: 15 }
+  { id: 'none', name: 'Aucun filtre', price: 0, image: null },
+  { id: 's', name: 'Glow Filter S', price: 12, image: '/previews/filters/glow-filter-s.png' },
+  { id: 'm', name: 'Glow Filter M', price: 15, image: '/previews/filters/glow-filter-m.png' }
 ];
+
 const colors = ['Milk', 'Linen', 'Amber', 'Smoke', 'Sur demande'];
 const euro = n => `${n} €`;
 const families = list => [...new Set(list.map(x => x.family))];
@@ -445,7 +448,7 @@ Total public TVAC : ${euro(total)}`;
   return (
     <main>
       <section className="hero">
-        <p className="pill">Configurateur maison · V4</p>
+        <p className="pill">Configurateur maison · V4 avec previews</p>
         <h1>Composer une lampe Lodri / Kumo</h1>
         <p>Prix publics TVAC cohérents boutique / site / vente directe. Plafond conseillé : 250 € pour une lampe complète avec cordon standard.</p>
       </section>
@@ -507,10 +510,25 @@ Total public TVAC : ${euro(total)}`;
         </div>
 
         <aside>
-          <div className="preview">
-            <div className="shade"></div>
-            <div className="neck"></div>
-            <div className="base"></div>
+          <div className="previewCard">
+            <div className="previewTitle">Prévisualisation client</div>
+            <div className="previewImages">
+              <div className="previewItem">
+                <img src={`/previews/shades/${shade.image}`} alt={`Abat-jour ${shade.family}`} />
+                <span>Abat-jour</span>
+              </div>
+              <div className="plus">+</div>
+              <div className="previewItem">
+                <img src={`/previews/bases/${base.image}`} alt={`Base ${base.family}`} />
+                <span>Base</span>
+              </div>
+            </div>
+            {filter.image && (
+              <div className="filterPreview">
+                <img src={filter.image} alt={filter.name} />
+                <span>{filter.name}</span>
+              </div>
+            )}
           </div>
 
           <div className="card">
