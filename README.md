@@ -1,3 +1,3 @@
 # lodri-configurator
 
-Configurateur Lodri / Kumo
+Configurateur Lodri / Kumo avec prévisualisations.
