@@ -551,25 +551,20 @@ function SwatchPicker({ title, items, selected, onSelect, type = 'solid' }) {
 function PreviewImage({ item, folder, color, stacked = 1, label }) {
   const count = Math.max(1, stacked || 1);
   return (
-    <div className={`previewItem stacked stacked-${count}`}>
+    <div className={`previewItem stacked stacked-${count}`} style={{ '--selected-color': color.hex }}>
+      <div className="colorHalo" />
       <div className="imageStack">
         {Array.from({ length: count }).map((_, index) => (
-          <div
+          <img
             key={index}
-            className={`previewColorWrap module-${index + 1}`}
-            style={{ '--preview-color': color.hex }}
-          >
-            <img
-              className="previewImg"
-              src={`/previews/${folder}/${item.image}`}
-              alt={label}
-            />
-            <span className="colorOverlay" />
-          </div>
+            className={`previewImg module-${index + 1}`}
+            src={`/previews/${folder}/${item.image}`}
+            alt={label}
+          />
         ))}
       </div>
       <span>{label}</span>
-      <small>{color.name}</small>
+      <small><i style={{ backgroundColor: color.hex }} />{color.name}</small>
     </div>
   );
 }
@@ -704,10 +699,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
             </div>
             {filter.image && (
               <div className="filterPreview">
-                <div className="filterColorWrap" style={{ '--preview-color': filterColor.hex }}>
-                  <img src={filter.image} alt={filter.name} />
-                  <span className="colorOverlay" />
-                </div>
+                <img src={filter.image} alt={filter.name} />
                 <div>
                   <strong>{filter.name}</strong>
                   <span>{filterColor.name}</span>
