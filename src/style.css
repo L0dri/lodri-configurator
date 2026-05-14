@@ -209,15 +209,14 @@ aside { display: grid; gap: 24px; align-content: start; }
   }
 }
 
-/* V7.2 — vrai nuancier visible, sans menu déroulant couleur. */
-
+/* V7.5 — vrai input couleur, sans menu déroulant couleur. */
 .colorSelect,
 .selectWithDot,
 .selectedDot {
   display: none !important;
 }
 
-.realSwatchBlock {
+.trueColorPicker {
   background: #f8f4ee;
   border: 1px solid #ece3d7;
   border-radius: 22px;
@@ -225,66 +224,69 @@ aside { display: grid; gap: 24px; align-content: start; }
   margin: 10px 0 18px;
 }
 
-.realSwatchTitle {
+.trueColorTitle {
   font-weight: 900;
   color: #6f665c;
   margin-bottom: 12px;
 }
 
-.realSwatchGrid {
+.trueColorRow {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
-  gap: 10px;
+  grid-template-columns: 56px 1fr;
+  gap: 12px;
+  align-items: center;
 }
 
-.realSwatch {
-  background: white;
-  border: 1px solid #e5ded4;
-  color: #2b2927;
-  border-radius: 16px;
-  padding: 10px;
-  min-height: 48px;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  justify-content: flex-start;
+.trueColorBox {
+  position: relative;
+  display: block;
+  width: 50px;
+  height: 50px;
+  padding: 0;
   cursor: pointer;
 }
 
-.realSwatch.selected {
-  outline: 3px solid #252525;
-  outline-offset: 2px;
+.trueColorBox input[type="color"] {
+  position: absolute;
+  inset: 0;
+  width: 50px;
+  height: 50px;
+  opacity: 0;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
 }
 
-.realSwatchDot {
-  width: 24px;
-  height: 24px;
+.trueColorBox span {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,.22);
+  box-shadow: inset 0 0 0 5px rgba(255,255,255,.22), 0 8px 18px rgba(0,0,0,.08);
+}
+
+.trueColorInfo {
+  display: grid;
+  gap: 4px;
+}
+
+.trueColorInfo strong {
+  font-size: 15px;
+}
+
+.trueColorInfo code {
+  width: fit-content;
+  background: white;
+  border: 1px solid #e5ded4;
+  padding: 4px 8px;
   border-radius: 999px;
-  border: 1px solid rgba(0,0,0,.2);
-  box-shadow: inset 0 0 0 4px rgba(255,255,255,.18);
-  flex: 0 0 auto;
+  color: #252525;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-.realSwatchDot.translucent {
-  opacity: .78;
-  box-shadow: inset 0 0 10px rgba(255,255,255,.75), 0 0 14px rgba(255,210,120,.24);
-}
-
-.realSwatchName {
-  font-size: 13px;
-  font-weight: 800;
-  line-height: 1.1;
-  text-align: left;
-}
-
-.realSwatchNote {
+.trueColorPicker p {
   margin: 10px 0 0;
   color: #756b60;
   font-size: 13px;
-}
-
-@media (max-width: 700px) {
-  .realSwatchGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }

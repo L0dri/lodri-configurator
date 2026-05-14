@@ -570,28 +570,36 @@ function PreviewImage({ item, folder, color, stacked = 1, label }) {
 }
 
 
-function SwatchPicker({ title, items, selected, onSelect }) {
+
+function ColorPicker({ title, selected, onSelect }) {
+  function chooseCustom(hex) {
+    onSelect({
+      ...selected,
+      id: 'custom',
+      name: 'Couleur personnalisée',
+      hex,
+      note: `Code couleur : ${hex}`
+    });
+  }
+
   return (
-    <div className="realSwatchBlock">
-      <div className="realSwatchTitle">{title}</div>
-      <div className="realSwatchGrid">
-        {items.map(item => (
-          <button
-            key={item.id}
-            type="button"
-            className={`realSwatch ${selected.id === item.id ? 'selected' : ''}`}
-            onClick={() => onSelect(item)}
-            title={item.note || item.name}
-          >
-            <span
-              className={`realSwatchDot ${item.id.includes('translucide') ? 'translucent' : ''}`}
-              style={{ backgroundColor: item.hex }}
-            />
-            <span className="realSwatchName">{item.name}</span>
-          </button>
-        ))}
+    <div className="trueColorPicker">
+      <div className="trueColorTitle">{title}</div>
+      <div className="trueColorRow">
+        <label className="trueColorBox" title="Choisir une couleur">
+          <input
+            type="color"
+            value={selected.hex}
+            onChange={e => chooseCustom(e.target.value)}
+          />
+          <span style={{ backgroundColor: selected.hex }} />
+        </label>
+        <div className="trueColorInfo">
+          <strong>{selected.name}</strong>
+          <code>{selected.hex}</code>
+        </div>
       </div>
-      <p className="realSwatchNote">{selected.note || selected.name}</p>
+      <p>{selected.note || 'Clique sur le carré pour choisir une couleur libre.'}</p>
     </div>
   );
 }
@@ -634,10 +642,10 @@ function App() {
   const total = base.price + shade.price + cordon.price + filter.price;
 
   const summary = useMemo(() => `Composition Lodri / Kumo
-Base : ${base.clientName} ${base.size} (${base.ref}, Ø ${base.diameter}, H ${base.height}) — ${euro(base.price)} · coloris ${baseColor.name}
-Abat-jour : ${shade.clientName} ${shade.size} (${shade.ref}, Ø ${shade.diameter}, H ${shade.height}) — ${euro(shade.price)} · coloris ${shadeColor.name}
-Cordon : ${cordon.name} — ${euro(cordon.price)} · coloris ${cordColor.name}
-Filtre : ${filter.name} — ${euro(filter.price)}${filter.id !== 'none' ? ` · coloris ${filterColor.name}` : ''}
+Base : ${base.clientName} ${base.size} (${base.ref}, Ø ${base.diameter}, H ${base.height}) — ${euro(base.price)} · coloris ${baseColor.name} (${baseColor.hex})
+Abat-jour : ${shade.clientName} ${shade.size} (${shade.ref}, Ø ${shade.diameter}, H ${shade.height}) — ${euro(shade.price)} · coloris ${shadeColor.name} (${shadeColor.hex})
+Cordon : ${cordon.name} — ${euro(cordon.price)} · coloris ${cordColor.name} (${cordColor.hex})
+Filtre : ${filter.name} — ${euro(filter.price)}${filter.id !== 'none' ? ` · coloris ${filterColor.name} (${filterColor.hex})` : ''}
 Total public TVAC : ${euro(total)}
 Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, filterColor, cordColor, total]);
 
@@ -687,7 +695,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
               </select>
             </label>
           </div>
-          <SwatchPicker title="Couleur de la base" items={baseColors} selected={baseColor} onSelect={setBaseColor} />
+          <ColorPicker title="Couleur de la base" selected={baseColor} onSelect={setBaseColor} />
           <MiniPreview title="Base choisie" item={base} folder="bases" color={baseColor} stacked={base.modules || 1} />
         </div>
 
@@ -705,7 +713,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
               </select>
             </label>
           </div>
-          <SwatchPicker title="Couleur de l’abat-jour" items={shadeColors} selected={shadeColor} onSelect={setShadeColor} />
+          <ColorPicker title="Couleur de l’abat-jour" selected={shadeColor} onSelect={setShadeColor} />
           <MiniPreview title="Abat-jour choisi" item={shade} folder="shades" color={shadeColor} />
         </div>
 
@@ -717,7 +725,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
                 {cordons.map(x => <option key={x.id} value={x.id}>{x.name} · {euro(x.price)}</option>)}
               </select>
             </label>
-            <SwatchPicker title="Couleur du cordon" items={cordColors} selected={cordColor} onSelect={setCordColor} />
+            <ColorPicker title="Couleur du cordon" selected={cordColor} onSelect={setCordColor} />
           </div>
           <div className="fields">
             <label>Filtre lumineux
@@ -725,7 +733,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
                 {filters.map(x => <option key={x.id} value={x.id}>{x.name} · {euro(x.price)}</option>)}
               </select>
             </label>
-            {filter.id !== 'none' && <SwatchPicker title="Couleur du filtre" items={filterColors} selected={filterColor} onSelect={setFilterColor} />}
+            {filter.id !== 'none' && <ColorPicker title="Couleur du filtre" selected={filterColor} onSelect={setFilterColor} />}
           </div>
         </div>
 
@@ -746,13 +754,13 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
           </div>
 
           <div className="line"><span>Base {base.clientName} {base.size}</span><strong>{euro(base.price)}</strong></div>
-          <div className="line subtle"><span>Couleur base</span><strong>{baseColor.name}</strong></div>
+          <div className="line subtle"><span>Couleur base</span><strong>{baseColor.name} · {baseColor.hex}</strong></div>
           <div className="line"><span>Abat-jour {shade.clientName} {shade.size}</span><strong>{euro(shade.price)}</strong></div>
-          <div className="line subtle"><span>Couleur abat-jour</span><strong>{shadeColor.name}</strong></div>
+          <div className="line subtle"><span>Couleur abat-jour</span><strong>{shadeColor.name} · {shadeColor.hex}</strong></div>
           <div className="line"><span>{cordon.name}</span><strong>{euro(cordon.price)}</strong></div>
-          <div className="line subtle"><span>Couleur cordon</span><strong>{cordColor.name}</strong></div>
+          <div className="line subtle"><span>Couleur cordon</span><strong>{cordColor.name} · {cordColor.hex}</strong></div>
           <div className="line"><span>{filter.name}</span><strong>{euro(filter.price)}</strong></div>
-          {filter.id !== 'none' && <div className="line subtle"><span>Couleur filtre</span><strong>{filterColor.name}</strong></div>}
+          {filter.id !== 'none' && <div className="line subtle"><span>Couleur filtre</span><strong>{filterColor.name} · {filterColor.hex}</strong></div>}
           <div className="infoNote">Le prix final sera confirmé ensemble selon les couleurs, matières et finitions choisies.</div>
           <div className="total"><span>Total TVAC</span><strong>{euro(total)}</strong></div>
           <button onClick={copy}>{copied ? <Check size={18}/> : <Copy size={18}/>} {copied ? 'Copié' : 'Copier le récap'}</button>
