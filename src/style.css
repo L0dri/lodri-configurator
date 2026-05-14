@@ -457,3 +457,15 @@ aside { display: grid; gap: 24px; align-content: start; }
   border: 1px solid rgba(0,0,0,.2);
   box-shadow: inset 0 0 0 4px rgba(255,255,255,.18);
 }
+
+/* V8.2 — force la zone canvas à être visible et recolorée. */
+.previewCanvas {
+  display: block;
+  width: 100% !important;
+  height: 185px !important;
+  object-fit: contain;
+}
+
+.imageStack {
+  min-height: 190px;
+}

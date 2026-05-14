@@ -599,14 +599,22 @@ function CableColorSelect({ title, items, selected, onSelect }) {
   );
 }
 
+
 function hexToRgb(hex) {
-  const clean = hex.replace('#', '');
+  const clean = (hex || '#cccccc').replace('#', '');
   const value = parseInt(clean, 16);
   return {
     r: (value >> 16) & 255,
     g: (value >> 8) & 255,
     b: value & 255
   };
+}
+
+function colorDistance(a, b) {
+  const dr = a.r - b.r;
+  const dg = a.g - b.g;
+  const db = a.b - b.b;
+  return Math.sqrt(dr * dr + dg * dg + db * db);
 }
 
 function TintedCanvas({ src, color, className, alt }) {
@@ -619,41 +627,66 @@ function TintedCanvas({ src, color, className, alt }) {
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     const img = new Image();
     img.crossOrigin = 'anonymous';
-    img.src = src;
+    img.src = `${src}?v=82`;
 
     img.onload = () => {
-      const maxSize = 420;
+      const maxSize = 520;
       const ratio = Math.min(maxSize / img.width, maxSize / img.height, 1);
       const width = Math.max(1, Math.round(img.width * ratio));
       const height = Math.max(1, Math.round(img.height * ratio));
 
       canvas.width = width;
       canvas.height = height;
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+
       ctx.clearRect(0, 0, width, height);
       ctx.drawImage(img, 0, 0, width, height);
 
       const imageData = ctx.getImageData(0, 0, width, height);
       const data = imageData.data;
-      const rgb = hexToRgb(color.hex || '#cccccc');
+      const rgb = hexToRgb(color.hex);
+
+      // On estime la couleur du fond avec les 4 coins de l’image.
+      const corners = [
+        0,
+        (width - 1) * 4,
+        ((height - 1) * width) * 4,
+        ((height - 1) * width + (width - 1)) * 4
+      ];
+
+      const bg = corners.reduce(
+        (acc, idx) => ({
+          r: acc.r + data[idx],
+          g: acc.g + data[idx + 1],
+          b: acc.b + data[idx + 2]
+        }),
+        { r: 0, g: 0, b: 0 }
+      );
+
+      bg.r = bg.r / corners.length;
+      bg.g = bg.g / corners.length;
+      bg.b = bg.b / corners.length;
 
       for (let i = 0; i < data.length; i += 4) {
-        const r = data[i];
-        const g = data[i + 1];
-        const b = data[i + 2];
-        const a = data[i + 3];
-        const brightness = (r + g + b) / 3;
+        const original = { r: data[i], g: data[i + 1], b: data[i + 2] };
+        const alpha = data[i + 3];
+        const dist = colorDistance(original, bg);
+        const brightness = (original.r + original.g + original.b) / 3;
 
-        if (brightness < 22 || a < 10) {
+        // Si le pixel ressemble au fond, on le rend transparent.
+        if (dist < 18 || alpha < 10) {
           data[i + 3] = 0;
           continue;
         }
 
-        const shade = Math.max(0.38, Math.min(1.28, brightness / 190));
+        // On garde les ombres/reliefs de l’objet.
+        const shade = Math.max(0.34, Math.min(1.35, brightness / 165));
 
         data[i] = Math.min(255, Math.round(rgb.r * shade));
         data[i + 1] = Math.min(255, Math.round(rgb.g * shade));
         data[i + 2] = Math.min(255, Math.round(rgb.b * shade));
-        data[i + 3] = Math.min(255, Math.round(a * 0.96));
+        data[i + 3] = Math.min(255, Math.round(alpha * 0.98));
       }
 
       ctx.putImageData(imageData, 0, 0);
@@ -678,7 +711,7 @@ function PreviewImage({ item, folder, color, stacked = 1, label }) {
       <div className="imageStack">
         {Array.from({ length: count }).map((_, index) => (
           <TintedCanvas
-            key={index}
+            key={`${index}-${color.hex}`}
             className={`previewCanvas module-${index + 1}`}
             src={imageUrl}
             color={color}
