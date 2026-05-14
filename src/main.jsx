@@ -549,6 +549,56 @@ function SwatchPicker({ title, items, selected, onSelect, type = 'solid' }) {
 }
 
 
+
+function ColorPicker({ title, selected, onSelect }) {
+  function chooseColor(hex) {
+    onSelect({
+      ...selected,
+      id: 'custom',
+      name: 'Couleur personnalisée',
+      hex,
+      filter: selected.filter || 'none',
+      note: `Code HEX : ${hex}`
+    });
+  }
+
+  return (
+    <div className="colorWheelBlock">
+      <div className="colorWheelTitle">{title}</div>
+      <div className="colorWheelRow">
+        <label className="colorWheelBox" title="Choisir une couleur libre">
+          <input
+            type="color"
+            value={selected.hex}
+            onChange={e => chooseColor(e.target.value)}
+          />
+          <span style={{ backgroundColor: selected.hex }} />
+        </label>
+        <div className="colorWheelInfo">
+          <strong>{selected.name}</strong>
+          <code>{selected.hex}</code>
+          <small>Clique sur le carré pour ouvrir la roue chromatique.</small>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CableColorSelect({ title, items, selected, onSelect }) {
+  return (
+    <label className="cableColorSelect">
+      {title}
+      <div className="cableSelectRow">
+        <span className="selectedDot" style={{ backgroundColor: selected.hex }} />
+        <select value={selected.id} onChange={e => onSelect(items.find(item => item.id === e.target.value))}>
+          {items.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
+        </select>
+      </div>
+      <small>Couleur textile indicative, à confirmer selon disponibilité.</small>
+    </label>
+  );
+}
+
 function hexToRgb(hex) {
   const clean = hex.replace('#', '');
   const value = parseInt(clean, 16);
@@ -665,8 +715,8 @@ function App() {
   const total = base.price + shade.price + cordon.price + filter.price;
 
   const summary = useMemo(() => `Composition Lodri / Kumo
-Base : ${base.clientName} ${base.size} (${base.ref}, Ø ${base.diameter}, H ${base.height}) — ${euro(base.price)} · coloris ${baseColor.name} (${baseColor.hex})
-Abat-jour : ${shade.clientName} ${shade.size} (${shade.ref}, Ø ${shade.diameter}, H ${shade.height}) — ${euro(shade.price)} · coloris ${shadeColor.name} (${shadeColor.hex})
+Base : ${base.clientName} ${base.size} (${base.ref}, Ø ${base.diameter}, H ${base.height}) — ${euro(base.price)} · coloris ${baseColor.name} (${baseColor.hex}) (${baseColor.hex})
+Abat-jour : ${shade.clientName} ${shade.size} (${shade.ref}, Ø ${shade.diameter}, H ${shade.height}) — ${euro(shade.price)} · coloris ${shadeColor.name} (${shadeColor.hex}) (${shadeColor.hex})
 Cordon : ${cordon.name} — ${euro(cordon.price)} · coloris ${cordColor.name}
 Filtre : ${filter.name} — ${euro(filter.price)}${filter.id !== 'none' ? ` · coloris ${filterColor.name} (${filterColor.hex})` : ''}
 Total public TVAC : ${euro(total)}
