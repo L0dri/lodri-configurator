@@ -475,25 +475,25 @@ const shades = [
 ];
 
 const baseColors = [
-  { id: 'blanc', name: 'Blanc', hex: '#F4F1EA', note: 'neutre lumineux' },
-  { id: 'noir', name: 'Noir', hex: '#171717', note: 'sobre et graphique' },
-  { id: 'bleu-majorelle', name: 'Bleu Majorelle', hex: '#2654D9', note: 'bleu vif signature' },
-  { id: 'orange', name: 'Orange', hex: '#F06A2A', note: 'chaud et pop' },
-  { id: 'rose', name: 'Rose', hex: '#E8A6B8', note: 'doux et coloré' },
-  { id: 'bleu-fonce', name: 'Bleu foncé', hex: '#142B55', note: 'profond et élégant' },
-  { id: 'terracotta', name: 'Terracotta', hex: '#B65F43', note: 'terre cuite' },
-  { id: 'brun', name: 'Brun', hex: '#6B4A35', note: 'chaud et naturel' },
-  { id: 'beige', name: 'Beige', hex: '#D8C3A3', note: 'clair et doux' },
-  { id: 'jaune', name: 'Jaune', hex: '#F2C84B', note: 'lumineux' },
+  { id: 'blanc', name: 'Blanc', hex: '#F4F1EA', filter: 'brightness(1.32) saturate(.45)', note: 'neutre lumineux' },
+  { id: 'noir', name: 'Noir', hex: '#171717', filter: 'brightness(.28) contrast(1.35) saturate(.2)', note: 'sobre et graphique' },
+  { id: 'bleu-majorelle', name: 'Bleu Majorelle', hex: '#2654D9', filter: 'sepia(1) saturate(6) hue-rotate(190deg) brightness(.86) contrast(1.2)', note: 'bleu vif signature' },
+  { id: 'orange', name: 'Orange', hex: '#F06A2A', filter: 'sepia(1) saturate(4.5) hue-rotate(350deg) brightness(1.02) contrast(1.05)', note: 'chaud et pop' },
+  { id: 'rose', name: 'Rose', hex: '#E8A6B8', filter: 'sepia(.55) saturate(2.4) hue-rotate(295deg) brightness(1.12) contrast(.92)', note: 'doux et coloré' },
+  { id: 'bleu-fonce', name: 'Bleu foncé', hex: '#142B55', filter: 'sepia(1) saturate(3.2) hue-rotate(185deg) brightness(.55) contrast(1.25)', note: 'profond et élégant' },
+  { id: 'terracotta', name: 'Terracotta', hex: '#B65F43', filter: 'sepia(.9) saturate(2.9) hue-rotate(340deg) brightness(.82) contrast(1.08)', note: 'terre cuite' },
+  { id: 'brun', name: 'Brun', hex: '#6B4A35', filter: 'sepia(1) saturate(1.55) hue-rotate(335deg) brightness(.6) contrast(1.2)', note: 'chaud et naturel' },
+  { id: 'beige', name: 'Beige', hex: '#D8C3A3', filter: 'sepia(.45) saturate(.9) hue-rotate(345deg) brightness(1.04) contrast(.95)', note: 'clair et doux' },
+  { id: 'jaune', name: 'Jaune', hex: '#F2C84B', filter: 'sepia(1) saturate(3.2) hue-rotate(5deg) brightness(1.12) contrast(.98)', note: 'lumineux' },
 ];
 
 const shadeColors = [
-  { id: 'blanc', name: 'Blanc', hex: '#F4F1EA', note: 'opaque ou très clair' },
-  { id: 'translucide-blanc', name: 'Translucide blanc', hex: '#F6F4EE', note: 'diffusion douce' },
-  { id: 'translucide-rose', name: 'Translucide rose', hex: '#F0A9BE', note: 'lumière douce rosée' },
-  { id: 'translucide-vert', name: 'Translucide vert', hex: '#A9C9A3', note: 'lumière fraîche' },
-  { id: 'translucide-jaune', name: 'Translucide jaune', hex: '#F3D45C', note: 'lumière chaude' },
-  { id: 'translucide-bleu', name: 'Translucide bleu', hex: '#A9D4F2', note: 'lumière froide légère' },
+  { id: 'blanc', name: 'Blanc', hex: '#F4F1EA', filter: 'brightness(1.28) saturate(.35)', note: 'opaque ou très clair' },
+  { id: 'translucide-blanc', name: 'Translucide blanc', hex: '#F6F4EE', filter: 'brightness(1.35) saturate(.25) opacity(.88)', note: 'diffusion douce' },
+  { id: 'translucide-rose', name: 'Translucide rose', hex: '#F0A9BE', filter: 'sepia(.55) saturate(2) hue-rotate(295deg) brightness(1.12) contrast(.9) opacity(.9)', note: 'lumière douce rosée' },
+  { id: 'translucide-vert', name: 'Translucide vert', hex: '#A9C9A3', filter: 'sepia(.7) saturate(1.7) hue-rotate(55deg) brightness(1.02) contrast(.9) opacity(.9)', note: 'lumière fraîche' },
+  { id: 'translucide-jaune', name: 'Translucide jaune', hex: '#F3D45C', filter: 'sepia(1) saturate(2.6) hue-rotate(8deg) brightness(1.18) contrast(.92) opacity(.9)', note: 'lumière chaude' },
+  { id: 'translucide-bleu', name: 'Translucide bleu', hex: '#A9D4F2', filter: 'sepia(.75) saturate(2.3) hue-rotate(170deg) brightness(1.08) contrast(.9) opacity(.9)', note: 'lumière froide légère' },
 ];
 
 const filterColors = shadeColors.filter(c => c.id !== 'blanc');
@@ -551,8 +551,7 @@ function SwatchPicker({ title, items, selected, onSelect, type = 'solid' }) {
 function PreviewImage({ item, folder, color, stacked = 1, label }) {
   const count = Math.max(1, stacked || 1);
   return (
-    <div className={`previewItem stacked stacked-${count}`} style={{ '--selected-color': color.hex }}>
-      <div className="colorHalo" />
+    <div className={`previewItem stacked stacked-${count}`}>
       <div className="imageStack">
         {Array.from({ length: count }).map((_, index) => (
           <img
@@ -560,6 +559,7 @@ function PreviewImage({ item, folder, color, stacked = 1, label }) {
             className={`previewImg module-${index + 1}`}
             src={`/previews/${folder}/${item.image}`}
             alt={label}
+            style={{ filter: color.filter }}
           />
         ))}
       </div>
@@ -699,7 +699,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
             </div>
             {filter.image && (
               <div className="filterPreview">
-                <img src={filter.image} alt={filter.name} />
+                <img src={filter.image} alt={filter.name} style={{ filter: filterColor.filter }} />
                 <div>
                   <strong>{filter.name}</strong>
                   <span>{filterColor.name}</span>

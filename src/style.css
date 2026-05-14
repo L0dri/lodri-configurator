@@ -58,41 +58,11 @@ aside { display: grid; gap: 24px; align-content: start; }
   .plus { text-align: center; }
 }
 
-.infoNote {
-  border-radius: 14px;
-  padding: 10px 12px;
-  margin-top: 14px;
-  font-weight: 700;
-  background: #f6f1ea;
-  color: #6b6258;
-  line-height: 1.35;
-}
-
-/* V6.4 — Couleur indiquée par halo/pastille, sans teinter l’image entière. */
-.previewItem {
-  isolation: isolate;
-}
-
-.colorHalo {
-  position: absolute;
-  inset: 22px;
-  border-radius: 28px;
-  background: var(--selected-color);
-  opacity: .23;
-  filter: blur(2px);
-  z-index: 0;
-}
-
-.previewItem .imageStack,
-.previewItem span,
-.previewItem small {
-  position: relative;
-  z-index: 1;
-}
-
+/* V6.5 — la pièce est teintée via filtre CSS, sans halo et sans débordement. */
 .previewItem small {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
 }
 
@@ -105,6 +75,12 @@ aside { display: grid; gap: 24px; align-content: start; }
   flex: 0 0 auto;
 }
 
-.previewImg {
-  background: transparent;
+.infoNote {
+  border-radius: 14px;
+  padding: 10px 12px;
+  margin-top: 14px;
+  font-weight: 700;
+  background: #f6f1ea;
+  color: #6b6258;
+  line-height: 1.35;
 }
