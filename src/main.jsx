@@ -548,89 +548,29 @@ function SwatchPicker({ title, items, selected, onSelect, type = 'solid' }) {
   );
 }
 
+
 function PreviewImage({ item, folder, color, stacked = 1, label }) {
   const count = Math.max(1, stacked || 1);
+  const imageUrl = `/previews/${folder}/${item.image}`;
+
   return (
     <div className={`previewItem stacked stacked-${count}`}>
       <div className="imageStack">
         {Array.from({ length: count }).map((_, index) => (
-          <img
+          <div
             key={index}
-            className={`previewImg module-${index + 1}`}
-            src={`/previews/${folder}/${item.image}`}
-            alt={label}
-            style={{ filter: color.filter }}
+            className={`maskedPreview module-${index + 1}`}
+            style={{
+              backgroundColor: color.hex,
+              WebkitMaskImage: `url(${imageUrl})`,
+              maskImage: `url(${imageUrl})`
+            }}
+            aria-label={label}
           />
         ))}
       </div>
       <span>{label}</span>
       <small><i style={{ backgroundColor: color.hex }} />{color.name}</small>
-    </div>
-  );
-}
-
-
-
-function ColorPicker({ title, selected, onSelect }) {
-  function chooseCustom(hex) {
-    onSelect({
-      ...selected,
-      id: 'custom',
-      name: 'Couleur personnalisée',
-      hex,
-      note: `Code couleur : ${hex}`
-    });
-  }
-
-  return (
-    <div className="trueColorPicker">
-      <div className="trueColorTitle">{title}</div>
-      <div className="trueColorRow">
-        <label className="trueColorBox" title="Choisir une couleur">
-          <input
-            type="color"
-            value={selected.hex}
-            onChange={e => chooseCustom(e.target.value)}
-          />
-          <span style={{ backgroundColor: selected.hex }} />
-        </label>
-        <div className="trueColorInfo">
-          <strong>{selected.name}</strong>
-          <code>{selected.hex}</code>
-        </div>
-      </div>
-      <p>{selected.note || 'Clique sur le carré pour choisir une couleur libre.'}</p>
-    </div>
-  );
-}
-
-
-function CableColorSelect({ title, items, selected, onSelect }) {
-  return (
-    <label className="cableColorSelect">
-      {title}
-      <div className="cableSelectRow">
-        <span className="selectedDot" style={{ backgroundColor: selected.hex }} />
-        <select value={selected.id} onChange={e => onSelect(items.find(item => item.id === e.target.value))}>
-          {items.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
-        </select>
-      </div>
-      <small>Couleur textile indicative, à confirmer selon disponibilité.</small>
-    </label>
-  );
-}
-
-function MiniPreview({ title, item, folder, color, stacked = 1 }) {
-  return (
-    <div className="miniPreview">
-      <div className="miniPreviewHeader">
-        <div>
-          <strong>{title}</strong>
-          <span>{item.clientName} · {item.size}</span>
-        </div>
-        <em>{euro(item.price)}</em>
-      </div>
-      <PreviewImage item={item} folder={folder} color={color} label={item.clientName} stacked={stacked} />
     </div>
   );
 }
