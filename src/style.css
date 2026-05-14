@@ -84,3 +84,127 @@ aside { display: grid; gap: 24px; align-content: start; }
   color: #6b6258;
   line-height: 1.35;
 }
+
+/* V7 — parcours mobile : aperçu sous chaque section + couleurs en sélecteur. */
+.layout { display: none !important; }
+
+.mobileFlow {
+  display: grid;
+  gap: 24px;
+}
+
+.stepCard,
+.summaryCard {
+  background: white;
+  border-radius: 30px;
+  box-shadow: 0 15px 40px rgba(0,0,0,.06);
+  padding: 28px;
+}
+
+.stepCard h2,
+.summaryCard h2 {
+  margin-top: 0;
+}
+
+.colorSelect {
+  margin-bottom: 18px;
+}
+
+.selectWithDot {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.selectedDot {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.2);
+  box-shadow: inset 0 0 0 4px rgba(255,255,255,.18);
+}
+
+.colorSelect small {
+  display: block;
+  color: #756b60;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.miniPreview {
+  margin-top: 18px;
+  border: 1px solid #e8dfd3;
+  border-radius: 24px;
+  padding: 14px;
+  background: linear-gradient(135deg, #fff, #f7f1e8);
+}
+
+.miniPreviewHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.miniPreviewHeader strong,
+.miniPreviewHeader span {
+  display: block;
+}
+
+.miniPreviewHeader span {
+  color: #756b60;
+  margin-top: 4px;
+}
+
+.miniPreviewHeader em {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 20px;
+}
+
+.miniPreview .previewItem {
+  min-height: 230px;
+  box-shadow: none;
+  background: rgba(255,255,255,.72);
+}
+
+.finalImages {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.finalImages .previewItem {
+  min-height: 220px;
+  box-shadow: none;
+}
+
+@media (min-width: 950px) {
+  .mobileFlow {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .summaryCard {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 700px) {
+  .stepCard,
+  .summaryCard {
+    padding: 20px;
+    border-radius: 26px;
+  }
+
+  .fields {
+    grid-template-columns: 1fr !important;
+  }
+
+  .finalImages {
+    grid-template-columns: 1fr;
+  }
+}

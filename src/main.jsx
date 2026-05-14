@@ -569,6 +569,37 @@ function PreviewImage({ item, folder, color, stacked = 1, label }) {
   );
 }
 
+
+function ColorSelect({ title, items, selected, onSelect }) {
+  return (
+    <label className="colorSelect">
+      {title}
+      <div className="selectWithDot">
+        <span className="selectedDot" style={{ backgroundColor: selected.hex }} />
+        <select value={selected.id} onChange={e => onSelect(items.find(item => item.id === e.target.value))}>
+          {items.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
+        </select>
+      </div>
+      <small>{selected.note || selected.name}</small>
+    </label>
+  );
+}
+
+function MiniPreview({ title, item, folder, color, stacked = 1 }) {
+  return (
+    <div className="miniPreview">
+      <div className="miniPreviewHeader">
+        <div>
+          <strong>{title}</strong>
+          <span>{item.clientName} · {item.size}</span>
+        </div>
+        <em>{euro(item.price)}</em>
+      </div>
+      <PreviewImage item={item} folder={folder} color={color} label={item.clientName} stacked={stacked} />
+    </div>
+  );
+}
+
 function App() {
   const [baseFamily, setBaseFamily] = useState('Cone');
   const [shadeFamily, setShadeFamily] = useState('Honeycomb');
@@ -580,7 +611,7 @@ function App() {
   const [shadeColor, setShadeColor] = useState(shadeColors[1]);
   const [filterColor, setFilterColor] = useState(filterColors[2]);
   const [cordColor, setCordColor] = useState(cordColors[0]);
-  const [showWorkshop, setShowWorkshop] = useState(true);
+  const [showWorkshop, setShowWorkshop] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const baseOptions = bases.filter(x => x.family === baseFamily);
@@ -621,16 +652,18 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
     <main>
       <section className="hero">
         <div>
-          <p className="pill">Configurateur maison · V6</p>
+          <p className="pill">Configurateur maison · V7</p>
           <h1>Composer une lampe Lodri / Kumo</h1>
-          <p>Une base, un abat-jour, un cordon, éventuellement un filtre lumineux. Les prix sont publics TVAC et cohérents entre boutique, site et vente directe. Les couleurs sont indicatives et peuvent être adaptées sur demande.</p>
+          <p>Choisis une base, un abat-jour, un cordon et éventuellement un filtre lumineux. Les couleurs sont indicatives et peuvent être adaptées sur demande.</p>
         </div>
-        <button className="smallButton" onClick={() => setShowWorkshop(!showWorkshop)}>{showWorkshop ? <EyeOff size={17} /> : <Eye size={17} />} {showWorkshop ? 'Masquer atelier' : 'Voir atelier'}</button>
+        <button className="smallButton" onClick={() => setShowWorkshop(!showWorkshop)}>
+          {showWorkshop ? <EyeOff size={17} /> : <Eye size={17} />} {showWorkshop ? 'Masquer atelier' : 'Voir atelier'}
+        </button>
       </section>
 
-      <section className="layout">
-        <div className="card">
-          <h2>1. Choisir la base</h2>
+      <section className="mobileFlow">
+        <div className="stepCard">
+          <h2>1. Base</h2>
           <div className="fields">
             <label>Collection
               <select value={baseFamily} onChange={e => changeBaseFamily(e.target.value)}>
@@ -639,13 +672,16 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
             </label>
             <label>Format
               <select value={base.ref} onChange={e => setBaseRef(e.target.value)}>
-                {baseOptions.map(x => <option key={x.ref} value={x.ref}>{x.clientName} · {x.ref} · Ø {x.diameter} · H {x.height} · {x.size} · {euro(x.price)}</option>)}
+                {baseOptions.map(x => <option key={x.ref} value={x.ref}>{x.clientName} · {x.ref} · {x.size} · {euro(x.price)}</option>)}
               </select>
             </label>
           </div>
-          <SwatchPicker title="Couleur de la base" items={baseColors} selected={baseColor} onSelect={setBaseColor} />
+          <ColorSelect title="Couleur de la base" items={baseColors} selected={baseColor} onSelect={setBaseColor} />
+          <MiniPreview title="Base choisie" item={base} folder="bases" color={baseColor} stacked={base.modules || 1} />
+        </div>
 
-          <h2>2. Choisir l’abat-jour</h2>
+        <div className="stepCard">
+          <h2>2. Abat-jour</h2>
           <div className="fields">
             <label>Collection
               <select value={shadeFamily} onChange={e => changeShadeFamily(e.target.value)}>
@@ -654,12 +690,15 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
             </label>
             <label>Format
               <select value={shade.ref} onChange={e => setShadeRef(e.target.value)}>
-                {shadeOptions.map(x => <option key={x.ref} value={x.ref}>{x.clientName} · {x.ref} · Ø {x.diameter} · H {x.height} · {x.size} · {euro(x.price)}</option>)}
+                {shadeOptions.map(x => <option key={x.ref} value={x.ref}>{x.clientName} · {x.ref} · {x.size} · {euro(x.price)}</option>)}
               </select>
             </label>
           </div>
-          <SwatchPicker title="Couleur de l’abat-jour" items={shadeColors} selected={shadeColor} onSelect={setShadeColor} type="translucent" />
+          <ColorSelect title="Couleur de l’abat-jour" items={shadeColors} selected={shadeColor} onSelect={setShadeColor} />
+          <MiniPreview title="Abat-jour choisi" item={shade} folder="shades" color={shadeColor} />
+        </div>
 
+        <div className="stepCard">
           <h2>3. Finitions</h2>
           <div className="fields">
             <label>Cordon
@@ -667,66 +706,47 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
                 {cordons.map(x => <option key={x.id} value={x.id}>{x.name} · {euro(x.price)}</option>)}
               </select>
             </label>
+            <ColorSelect title="Couleur du cordon" items={cordColors} selected={cordColor} onSelect={setCordColor} />
+          </div>
+          <div className="fields">
             <label>Filtre lumineux
               <select value={filterId} onChange={e => setFilterId(e.target.value)}>
                 {filters.map(x => <option key={x.id} value={x.id}>{x.name} · {euro(x.price)}</option>)}
               </select>
             </label>
+            {filter.id !== 'none' && <ColorSelect title="Couleur du filtre" items={filterColors} selected={filterColor} onSelect={setFilterColor} />}
           </div>
-
-          <SwatchPicker title="Couleur du cordon" items={cordColors} selected={cordColor} onSelect={setCordColor} />
-          {filter.id !== 'none' && (
-            <SwatchPicker title="Couleur du filtre translucide" items={filterColors} selected={filterColor} onSelect={setFilterColor} type="translucent" />
-          )}
-
-          {showWorkshop && (
-            <div className="atelier">
-              <h2>Repères atelier</h2>
-              <p><strong>Base :</strong> {base.family} · {base.ref} · Ø {base.diameter} · H {base.height} · taille {base.size} · {base.tier}</p>
-              <p><strong>Abat-jour :</strong> {shade.family} · {shade.ref} · Ø {shade.diameter} · H {shade.height} · taille {shade.size} · {shade.tier}</p>
-              <p><strong>Note :</strong> Les dimensions affichées servent de repères atelier. Les proportions et couleurs restent indicatives et peuvent légèrement varier selon l’impression et le filament utilisé.</p>
-            </div>
-          )}
         </div>
 
-        <aside>
-          <div className="previewCard">
-            <div className="previewTitle">Prévisualisation client</div>
-            <div className="previewImages">
-              <PreviewImage item={shade} folder="shades" color={shadeColor} label={shade.clientName} />
-              <div className="plus">+</div>
-              <PreviewImage item={base} folder="bases" color={baseColor} label={base.clientName} stacked={base.modules || 1} />
-            </div>
-            {filter.image && (
-              <div className="filterPreview">
-                <img src={filter.image} alt={filter.name} style={{ filter: filterColor.filter }} />
-                <div>
-                  <strong>{filter.name}</strong>
-                  <span>{filterColor.name}</span>
-                </div>
-              </div>
-            )}
-            <p className="previewDisclaimer">Les couleurs sont indicatives : elles servent à composer l’ambiance avant validation ensemble.</p>
+        {showWorkshop && (
+          <div className="stepCard atelier">
+            <h2>Repères atelier</h2>
+            <p><strong>Base :</strong> {base.family} · {base.ref} · Ø {base.diameter} · H {base.height} · taille {base.size} · {base.tier}</p>
+            <p><strong>Abat-jour :</strong> {shade.family} · {shade.ref} · Ø {shade.diameter} · H {shade.height} · taille {shade.size} · {shade.tier}</p>
+            <p><strong>Note :</strong> Les dimensions affichées servent de repères atelier. Les proportions et couleurs restent indicatives et peuvent légèrement varier selon l’impression et le filament utilisé.</p>
+          </div>
+        )}
+
+        <div className="summaryCard">
+          <h2>Récapitulatif</h2>
+          <div className="finalImages">
+            <PreviewImage item={shade} folder="shades" color={shadeColor} label={shade.clientName} />
+            <PreviewImage item={base} folder="bases" color={baseColor} label={base.clientName} stacked={base.modules || 1} />
           </div>
 
-          <div className="card">
-            <h2>Composition</h2>
-            <div className="line"><span>Base {base.clientName} {base.size}</span><strong>{euro(base.price)}</strong></div>
-            <div className="line subtle"><span>Dimensions base</span><strong>Ø {base.diameter} · H {base.height}</strong></div>
-            <div className="line subtle"><span>Couleur base</span><strong>{baseColor.name}</strong></div>
-            <div className="line"><span>Abat-jour {shade.clientName} {shade.size}</span><strong>{euro(shade.price)}</strong></div>
-            <div className="line subtle"><span>Dimensions abat-jour</span><strong>Ø {shade.diameter} · H {shade.height}</strong></div>
-            <div className="line subtle"><span>Couleur abat-jour</span><strong>{shadeColor.name}</strong></div>
-            <div className="line"><span>{cordon.name}</span><strong>{euro(cordon.price)}</strong></div>
-            <div className="line subtle"><span>Couleur cordon</span><strong>{cordColor.name}</strong></div>
-            <div className="line"><span>{filter.name}</span><strong>{euro(filter.price)}</strong></div>
-            {filter.id !== 'none' && <div className="line subtle"><span>Couleur filtre</span><strong>{filterColor.name}</strong></div>}
-            <div className="infoNote">Le prix final sera confirmé ensemble selon les couleurs, matières et finitions choisies.</div>
-            <div className="total"><span>Total TVAC</span><strong>{euro(total)}</strong></div>
-            <button onClick={copy}>{copied ? <Check size={18}/> : <Copy size={18}/>} {copied ? 'Copié' : 'Copier le récap'}</button>
-            <a className="mailButton" href={mailHref}><Mail size={18} /> Me contacter pour finaliser</a>
-          </div>
-        </aside>
+          <div className="line"><span>Base {base.clientName} {base.size}</span><strong>{euro(base.price)}</strong></div>
+          <div className="line subtle"><span>Couleur base</span><strong>{baseColor.name}</strong></div>
+          <div className="line"><span>Abat-jour {shade.clientName} {shade.size}</span><strong>{euro(shade.price)}</strong></div>
+          <div className="line subtle"><span>Couleur abat-jour</span><strong>{shadeColor.name}</strong></div>
+          <div className="line"><span>{cordon.name}</span><strong>{euro(cordon.price)}</strong></div>
+          <div className="line subtle"><span>Couleur cordon</span><strong>{cordColor.name}</strong></div>
+          <div className="line"><span>{filter.name}</span><strong>{euro(filter.price)}</strong></div>
+          {filter.id !== 'none' && <div className="line subtle"><span>Couleur filtre</span><strong>{filterColor.name}</strong></div>}
+          <div className="infoNote">Le prix final sera confirmé ensemble selon les couleurs, matières et finitions choisies.</div>
+          <div className="total"><span>Total TVAC</span><strong>{euro(total)}</strong></div>
+          <button onClick={copy}>{copied ? <Check size={18}/> : <Copy size={18}/>} {copied ? 'Copié' : 'Copier le récap'}</button>
+          <a className="mailButton" href={mailHref}><Mail size={18} /> Me contacter pour finaliser</a>
+        </div>
       </section>
     </main>
   );
