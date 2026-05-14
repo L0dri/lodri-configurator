@@ -551,21 +551,16 @@ function SwatchPicker({ title, items, selected, onSelect, type = 'solid' }) {
 
 function PreviewImage({ item, folder, color, stacked = 1, label }) {
   const count = Math.max(1, stacked || 1);
-  const imageUrl = `/previews/${folder}/${item.image}`;
-
   return (
     <div className={`previewItem stacked stacked-${count}`}>
       <div className="imageStack">
         {Array.from({ length: count }).map((_, index) => (
-          <div
+          <img
             key={index}
-            className={`maskedPreview module-${index + 1}`}
-            style={{
-              backgroundColor: color.hex,
-              WebkitMaskImage: `url(${imageUrl})`,
-              maskImage: `url(${imageUrl})`
-            }}
-            aria-label={label}
+            className={`previewImg module-${index + 1}`}
+            src={`/previews/${folder}/${item.image}`}
+            alt={label}
+            style={{ filter: color.filter || 'none' }}
           />
         ))}
       </div>
