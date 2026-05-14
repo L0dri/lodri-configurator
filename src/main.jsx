@@ -570,18 +570,29 @@ function PreviewImage({ item, folder, color, stacked = 1, label }) {
 }
 
 
-function ColorSelect({ title, items, selected, onSelect }) {
+function SwatchPicker({ title, items, selected, onSelect }) {
   return (
-    <label className="colorSelect">
-      {title}
-      <div className="selectWithDot">
-        <span className="selectedDot" style={{ backgroundColor: selected.hex }} />
-        <select value={selected.id} onChange={e => onSelect(items.find(item => item.id === e.target.value))}>
-          {items.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
-        </select>
+    <div className="swatchBlock compactSwatches">
+      <div className="swatchTitle">{title}</div>
+      <div className="swatches">
+        {items.map(item => (
+          <button
+            key={item.id}
+            type="button"
+            className={`swatch ${selected.id === item.id ? 'active' : ''}`}
+            onClick={() => onSelect(item)}
+            title={item.note || item.name}
+          >
+            <span
+              className={`swatchDot ${item.id.includes('translucide') ? 'translucent' : ''}`}
+              style={{ backgroundColor: item.hex }}
+            />
+            <span className="swatchName">{item.name}</span>
+          </button>
+        ))}
       </div>
-      <small>{selected.note || selected.name}</small>
-    </label>
+      <p className="swatchNote">{selected.note || selected.name}</p>
+    </div>
   );
 }
 
@@ -676,7 +687,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
               </select>
             </label>
           </div>
-          <ColorSelect title="Couleur de la base" items={baseColors} selected={baseColor} onSelect={setBaseColor} />
+          <SwatchPicker title="Couleur de la base" items={baseColors} selected={baseColor} onSelect={setBaseColor} />
           <MiniPreview title="Base choisie" item={base} folder="bases" color={baseColor} stacked={base.modules || 1} />
         </div>
 
@@ -694,7 +705,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
               </select>
             </label>
           </div>
-          <ColorSelect title="Couleur de l’abat-jour" items={shadeColors} selected={shadeColor} onSelect={setShadeColor} />
+          <SwatchPicker title="Couleur de l’abat-jour" items={shadeColors} selected={shadeColor} onSelect={setShadeColor} />
           <MiniPreview title="Abat-jour choisi" item={shade} folder="shades" color={shadeColor} />
         </div>
 
@@ -706,7 +717,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
                 {cordons.map(x => <option key={x.id} value={x.id}>{x.name} · {euro(x.price)}</option>)}
               </select>
             </label>
-            <ColorSelect title="Couleur du cordon" items={cordColors} selected={cordColor} onSelect={setCordColor} />
+            <SwatchPicker title="Couleur du cordon" items={cordColors} selected={cordColor} onSelect={setCordColor} />
           </div>
           <div className="fields">
             <label>Filtre lumineux
@@ -714,7 +725,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
                 {filters.map(x => <option key={x.id} value={x.id}>{x.name} · {euro(x.price)}</option>)}
               </select>
             </label>
-            {filter.id !== 'none' && <ColorSelect title="Couleur du filtre" items={filterColors} selected={filterColor} onSelect={setFilterColor} />}
+            {filter.id !== 'none' && <SwatchPicker title="Couleur du filtre" items={filterColors} selected={filterColor} onSelect={setFilterColor} />}
           </div>
         </div>
 
