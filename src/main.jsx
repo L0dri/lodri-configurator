@@ -1,5 +1,5 @@
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Copy, Check, Mail, Eye, EyeOff } from 'lucide-react';
 import './style.css';
@@ -549,18 +549,90 @@ function SwatchPicker({ title, items, selected, onSelect, type = 'solid' }) {
 }
 
 
+function hexToRgb(hex) {
+  const clean = hex.replace('#', '');
+  const value = parseInt(clean, 16);
+  return {
+    r: (value >> 16) & 255,
+    g: (value >> 8) & 255,
+    b: value & 255
+  };
+}
+
+function TintedCanvas({ src, color, className, alt }) {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = src;
+
+    img.onload = () => {
+      const maxSize = 420;
+      const ratio = Math.min(maxSize / img.width, maxSize / img.height, 1);
+      const width = Math.max(1, Math.round(img.width * ratio));
+      const height = Math.max(1, Math.round(img.height * ratio));
+
+      canvas.width = width;
+      canvas.height = height;
+      ctx.clearRect(0, 0, width, height);
+      ctx.drawImage(img, 0, 0, width, height);
+
+      const imageData = ctx.getImageData(0, 0, width, height);
+      const data = imageData.data;
+      const rgb = hexToRgb(color.hex || '#cccccc');
+
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        const a = data[i + 3];
+        const brightness = (r + g + b) / 3;
+
+        if (brightness < 22 || a < 10) {
+          data[i + 3] = 0;
+          continue;
+        }
+
+        const shade = Math.max(0.38, Math.min(1.28, brightness / 190));
+
+        data[i] = Math.min(255, Math.round(rgb.r * shade));
+        data[i + 1] = Math.min(255, Math.round(rgb.g * shade));
+        data[i + 2] = Math.min(255, Math.round(rgb.b * shade));
+        data[i + 3] = Math.min(255, Math.round(a * 0.96));
+      }
+
+      ctx.putImageData(imageData, 0, 0);
+    };
+
+    img.onerror = () => {
+      canvas.width = 220;
+      canvas.height = 160;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    };
+  }, [src, color.hex]);
+
+  return <canvas ref={canvasRef} className={className} aria-label={alt} role="img" />;
+}
+
 function PreviewImage({ item, folder, color, stacked = 1, label }) {
   const count = Math.max(1, stacked || 1);
+  const imageUrl = `/previews/${folder}/${item.image}`;
+
   return (
     <div className={`previewItem stacked stacked-${count}`}>
       <div className="imageStack">
         {Array.from({ length: count }).map((_, index) => (
-          <img
+          <TintedCanvas
             key={index}
-            className={`previewImg module-${index + 1}`}
-            src={`/previews/${folder}/${item.image}`}
+            className={`previewCanvas module-${index + 1}`}
+            src={imageUrl}
+            color={color}
             alt={label}
-            style={{ filter: color.filter || 'none' }}
           />
         ))}
       </div>

@@ -313,7 +313,30 @@ aside { display: grid; gap: 24px; align-content: start; }
   font-weight: 500;
 }
 
-/* V7.8 — version sûre : coloration par filtre CSS sur l’image, sans masque fragile. */
+/* V8 — recoloration via canvas : le fond noir est ignoré, la pièce prend la couleur choisie. */
+.previewCanvas {
+  position: absolute;
+  max-width: 100%;
+  max-height: 185px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 16px rgba(0,0,0,.16));
+}
+
+.stacked-2 .previewCanvas.module-1 { transform: translateY(22px) scale(.96); }
+.stacked-2 .previewCanvas.module-2 { transform: translateY(-24px) scale(.96); }
+.stacked-3 .previewCanvas.module-1 { transform: translateY(42px) scale(.92); }
+.stacked-3 .previewCanvas.module-2 { transform: translateY(0px) scale(.92); }
+.stacked-3 .previewCanvas.module-3 { transform: translateY(-42px) scale(.92); }
+
+.filterCanvas {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 10px rgba(0,0,0,.14));
+}
+
 .previewItem small {
   display: inline-flex;
   align-items: center;
