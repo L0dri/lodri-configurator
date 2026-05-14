@@ -1,12 +1,13 @@
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Copy, Check } from 'lucide-react';
+import { Copy, Check, Mail, Eye, EyeOff } from 'lucide-react';
 import './style.css';
 
 const bases = [
   {
     "family": "Cylinder",
+    "clientName": "Cylindre",
     "ref": "D80",
     "diameter": "80 mm",
     "size": "S",
@@ -16,6 +17,7 @@ const bases = [
   },
   {
     "family": "Cylinder",
+    "clientName": "Cylindre",
     "ref": "D90",
     "diameter": "90 mm",
     "size": "S",
@@ -25,6 +27,7 @@ const bases = [
   },
   {
     "family": "Cylinder",
+    "clientName": "Cylindre",
     "ref": "D100",
     "diameter": "100 mm",
     "size": "M",
@@ -34,6 +37,7 @@ const bases = [
   },
   {
     "family": "Cylinder",
+    "clientName": "Cylindre",
     "ref": "D125",
     "diameter": "125 mm",
     "size": "M+",
@@ -43,6 +47,7 @@ const bases = [
   },
   {
     "family": "Cylinder",
+    "clientName": "Cylindre",
     "ref": "D150",
     "diameter": "150 mm",
     "size": "L",
@@ -52,6 +57,7 @@ const bases = [
   },
   {
     "family": "Cone",
+    "clientName": "Cône",
     "ref": "D80",
     "diameter": "80 mm",
     "size": "S",
@@ -61,6 +67,7 @@ const bases = [
   },
   {
     "family": "Cone",
+    "clientName": "Cône",
     "ref": "D90",
     "diameter": "90 mm",
     "size": "S",
@@ -70,6 +77,7 @@ const bases = [
   },
   {
     "family": "Cone",
+    "clientName": "Cône",
     "ref": "D100",
     "diameter": "100 mm",
     "size": "M",
@@ -79,6 +87,7 @@ const bases = [
   },
   {
     "family": "Cone",
+    "clientName": "Cône",
     "ref": "D125",
     "diameter": "125 mm",
     "size": "M+",
@@ -88,6 +97,7 @@ const bases = [
   },
   {
     "family": "Cone",
+    "clientName": "Cône",
     "ref": "D150",
     "diameter": "150 mm",
     "size": "L",
@@ -97,6 +107,7 @@ const bases = [
   },
   {
     "family": "Cone Wide",
+    "clientName": "Cône large",
     "ref": "D80",
     "diameter": "80 mm",
     "size": "S",
@@ -106,6 +117,7 @@ const bases = [
   },
   {
     "family": "Cone Wide",
+    "clientName": "Cône large",
     "ref": "D100",
     "diameter": "100 mm",
     "size": "M",
@@ -115,6 +127,7 @@ const bases = [
   },
   {
     "family": "Cone Wide",
+    "clientName": "Cône large",
     "ref": "D125",
     "diameter": "125 mm",
     "size": "L",
@@ -124,6 +137,7 @@ const bases = [
   },
   {
     "family": "Arch",
+    "clientName": "Arche",
     "ref": "D100 H75",
     "diameter": "100 mm",
     "size": "S",
@@ -133,6 +147,7 @@ const bases = [
   },
   {
     "family": "Arch",
+    "clientName": "Arche",
     "ref": "D100 H85",
     "diameter": "100 mm",
     "size": "S",
@@ -142,6 +157,7 @@ const bases = [
   },
   {
     "family": "Arch",
+    "clientName": "Arche",
     "ref": "D100 H95",
     "diameter": "100 mm",
     "size": "S",
@@ -151,6 +167,7 @@ const bases = [
   },
   {
     "family": "Arch",
+    "clientName": "Arche",
     "ref": "D100 H105",
     "diameter": "100 mm",
     "size": "M",
@@ -160,6 +177,7 @@ const bases = [
   },
   {
     "family": "Arch",
+    "clientName": "Arche",
     "ref": "D100 H115",
     "diameter": "100 mm",
     "size": "M",
@@ -169,6 +187,7 @@ const bases = [
   },
   {
     "family": "Arch",
+    "clientName": "Arche",
     "ref": "D100 H140",
     "diameter": "100 mm",
     "size": "L",
@@ -178,6 +197,7 @@ const bases = [
   },
   {
     "family": "Arch",
+    "clientName": "Arche",
     "ref": "D100 H165",
     "diameter": "100 mm",
     "size": "XL",
@@ -187,6 +207,7 @@ const bases = [
   },
   {
     "family": "Arch",
+    "clientName": "Arche",
     "ref": "D120",
     "diameter": "120 mm",
     "size": "M+",
@@ -196,6 +217,7 @@ const bases = [
   },
   {
     "family": "Arch",
+    "clientName": "Arche",
     "ref": "D150",
     "diameter": "150 mm",
     "size": "L",
@@ -205,6 +227,7 @@ const bases = [
   },
   {
     "family": "Cloud",
+    "clientName": "Nuage",
     "ref": "Collection standard",
     "diameter": "variable",
     "size": "M",
@@ -214,6 +237,7 @@ const bases = [
   },
   {
     "family": "Totem Base",
+    "clientName": "Totem",
     "ref": "D130",
     "diameter": "130 mm",
     "size": "M",
@@ -223,6 +247,7 @@ const bases = [
   },
   {
     "family": "Totem Base",
+    "clientName": "Totem",
     "ref": "D200 H65",
     "diameter": "200 mm",
     "size": "L",
@@ -232,35 +257,42 @@ const bases = [
   },
   {
     "family": "Edamame Base",
-    "ref": "Solo / 1 boudin",
+    "clientName": "Edamame Solo",
+    "ref": "Solo",
     "diameter": "160 mm",
     "size": "M",
     "tier": "Signature modulaire",
     "price": 69,
-    "image": "edamame-d160.png"
+    "image": "edamame-d160.png",
+    "modules": 1
   },
   {
     "family": "Edamame Base",
-    "ref": "Duo / 2 boudins",
+    "clientName": "Edamame Duo",
+    "ref": "Duo",
     "diameter": "160 mm",
     "size": "L",
     "tier": "Signature modulaire",
     "price": 85,
-    "image": "edamame-d160.png"
+    "image": "edamame-d160.png",
+    "modules": 2
   },
   {
     "family": "Edamame Base",
-    "ref": "Trio / 3 boudins",
+    "clientName": "Edamame Trio",
+    "ref": "Trio",
     "diameter": "160 mm",
     "size": "XL",
     "tier": "Signature modulaire",
     "price": 95,
-    "image": "edamame-d160.png"
+    "image": "edamame-d160.png",
+    "modules": 3
   }
 ];
 const shades = [
   {
     "family": "Squash",
+    "clientName": "Squash",
     "ref": "D160",
     "diameter": "160 mm",
     "size": "M",
@@ -270,6 +302,7 @@ const shades = [
   },
   {
     "family": "Honeycomb",
+    "clientName": "Honeycomb",
     "ref": "D175",
     "diameter": "175 mm",
     "size": "M",
@@ -279,6 +312,7 @@ const shades = [
   },
   {
     "family": "Honeycomb",
+    "clientName": "Honeycomb Tall",
     "ref": "Tall D210",
     "diameter": "210 mm",
     "size": "L",
@@ -288,6 +322,7 @@ const shades = [
   },
   {
     "family": "Tree",
+    "clientName": "Tree",
     "ref": "D175",
     "diameter": "175 mm",
     "size": "M",
@@ -297,6 +332,7 @@ const shades = [
   },
   {
     "family": "Tree",
+    "clientName": "Tree inversé",
     "ref": "Inverted 3 segments",
     "diameter": "175 mm",
     "size": "M",
@@ -306,6 +342,7 @@ const shades = [
   },
   {
     "family": "Tree",
+    "clientName": "Tree inversé haut",
     "ref": "Inverted Tall D200",
     "diameter": "200 mm",
     "size": "L",
@@ -315,6 +352,7 @@ const shades = [
   },
   {
     "family": "Tree",
+    "clientName": "Tree large",
     "ref": "Wide 4 segments D240",
     "diameter": "240 mm",
     "size": "XL",
@@ -324,6 +362,7 @@ const shades = [
   },
   {
     "family": "Tree",
+    "clientName": "Tree inversé large",
     "ref": "Inverted Wide D240",
     "diameter": "240 mm",
     "size": "XL",
@@ -333,6 +372,7 @@ const shades = [
   },
   {
     "family": "Totem Shade",
+    "clientName": "Totem",
     "ref": "D130",
     "diameter": "130 mm",
     "size": "M",
@@ -342,6 +382,7 @@ const shades = [
   },
   {
     "family": "Totem Shade",
+    "clientName": "Totem fin haut",
     "ref": "Thin Tall D150",
     "diameter": "150 mm",
     "size": "L fin",
@@ -351,6 +392,7 @@ const shades = [
   },
   {
     "family": "Totem Shade",
+    "clientName": "Totem haut",
     "ref": "Tall D200",
     "diameter": "200 mm",
     "size": "L",
@@ -360,6 +402,7 @@ const shades = [
   },
   {
     "family": "Totem Shade",
+    "clientName": "Totem large",
     "ref": "Wide D200",
     "diameter": "200 mm",
     "size": "L",
@@ -369,6 +412,7 @@ const shades = [
   },
   {
     "family": "Woven",
+    "clientName": "Tissé",
     "ref": "Collection standard",
     "diameter": "variable",
     "size": "L premium",
@@ -378,6 +422,7 @@ const shades = [
   },
   {
     "family": "Edamame Shade",
+    "clientName": "Edamame",
     "ref": "D160",
     "diameter": "160 mm",
     "size": "L premium",
@@ -385,6 +430,34 @@ const shades = [
     "price": 119,
     "image": "edamame-d160.png"
   }
+];
+
+const baseColors = [
+  { id: 'craie', name: 'Craie', hex: '#F3EFE7', note: 'blanc cassé mat' },
+  { id: 'lin', name: 'Lin', hex: '#D8C8AE', note: 'beige clair' },
+  { id: 'sable', name: 'Sable', hex: '#C9A978', note: 'beige chaud' },
+  { id: 'terre-cuite', name: 'Terre cuite', hex: '#B86442', note: 'terracotta' },
+  { id: 'sauge', name: 'Sauge', hex: '#A6B59A', note: 'vert doux' },
+  { id: 'anthracite', name: 'Anthracite', hex: '#343536', note: 'gris foncé' },
+  { id: 'noir', name: 'Noir', hex: '#171717', note: 'noir mat' },
+];
+
+const lightColors = [
+  { id: 'givre', name: 'Givre', hex: '#F6F4EE', note: 'blanc translucide' },
+  { id: 'ivoire', name: 'Ivoire', hex: '#F1E2C3', note: 'crème lumineux' },
+  { id: 'miel', name: 'Miel', hex: '#DFA64B', note: 'ambre doux' },
+  { id: 'ambre', name: 'Ambre', hex: '#C46B35', note: 'orange chaud lumineux' },
+  { id: 'fume', name: 'Fumé', hex: '#81776D', note: 'gris translucide' },
+  { id: 'glacier', name: 'Glacier', hex: '#B9D8E8', note: 'bleu translucide léger' },
+];
+
+const cordColors = [
+  { id: 'noir', name: 'Noir', hex: '#171717' },
+  { id: 'blanc', name: 'Blanc', hex: '#F7F4EF' },
+  { id: 'bleu', name: 'Bleu', hex: '#2E6FAE' },
+  { id: 'bleu-nuit', name: 'Bleu nuit', hex: '#182947' },
+  { id: 'sauge', name: 'Sauge', hex: '#A6B59A' },
+  { id: 'orange', name: 'Orange', hex: '#E56B2F' },
 ];
 
 const cordons = [
@@ -399,9 +472,58 @@ const filters = [
   { id: 'm', name: 'Glow Filter M', price: 15, image: '/previews/filters/glow-filter-m.png' }
 ];
 
-const colors = ['Milk', 'Linen', 'Amber', 'Smoke', 'Sur demande'];
 const euro = n => `${n} €`;
 const families = list => [...new Set(list.map(x => x.family))];
+
+function SwatchPicker({ title, items, selected, onSelect, type = 'solid' }) {
+  return (
+    <div className="swatchBlock">
+      <div className="swatchTitle">{title}</div>
+      <div className="swatches">
+        {items.map(item => (
+          <button
+            key={item.id}
+            type="button"
+            className={`swatch ${selected.id === item.id ? 'active' : ''}`}
+            onClick={() => onSelect(item)}
+            title={item.note || item.name}
+          >
+            <span
+              className={`swatchDot ${type === 'translucent' ? 'translucent' : ''}`}
+              style={{ backgroundColor: item.hex }}
+            />
+            <span className="swatchName">{item.name}</span>
+          </button>
+        ))}
+      </div>
+      <p className="swatchNote">{selected.note || selected.name}</p>
+    </div>
+  );
+}
+
+function PreviewImage({ item, folder, color, stacked = 1, label }) {
+  const count = Math.max(1, stacked || 1);
+  return (
+    <div className={`previewItem stacked stacked-${count}`}>
+      <div className="imageStack">
+        {Array.from({ length: count }).map((_, index) => (
+          <img
+            key={index}
+            className={`previewImg module-${index + 1}`}
+            src={`/previews/${folder}/${item.image}`}
+            alt={label}
+            style={{
+              filter: `sepia(0.15) saturate(0.8) drop-shadow(0 10px 15px rgba(0,0,0,.08))`,
+              opacity: 0.96
+            }}
+          />
+        ))}
+      </div>
+      <span>{label}</span>
+      <small>{color.name}</small>
+    </div>
+  );
+}
 
 function App() {
   const [baseFamily, setBaseFamily] = useState('Cone');
@@ -410,24 +532,28 @@ function App() {
   const [shadeRef, setShadeRef] = useState('D175');
   const [cordonId, setCordonId] = useState('standard');
   const [filterId, setFilterId] = useState('none');
-  const [color, setColor] = useState('Linen');
+  const [baseColor, setBaseColor] = useState(baseColors[1]);
+  const [shadeColor, setShadeColor] = useState(lightColors[1]);
+  const [filterColor, setFilterColor] = useState(lightColors[2]);
+  const [cordColor, setCordColor] = useState(cordColors[0]);
+  const [showWorkshop, setShowWorkshop] = useState(true);
   const [copied, setCopied] = useState(false);
 
   const baseOptions = bases.filter(x => x.family === baseFamily);
   const shadeOptions = shades.filter(x => x.family === shadeFamily);
   const base = baseOptions.find(x => x.ref === baseRef) || baseOptions[0];
   const shade = shadeOptions.find(x => x.ref === shadeRef) || shadeOptions[0];
-  const cordon = cordons.find(x => x.id === cordonId);
-  const filter = filters.find(x => x.id === filterId);
+  const cordon = cordons.find(x => x.id === cordonId) || cordons[0];
+  const filter = filters.find(x => x.id === filterId) || filters[0];
   const total = base.price + shade.price + cordon.price + filter.price;
 
-  const summary = `Composition Lodri / Kumo
-Base : ${base.family} ${base.size} (${base.ref}, Ø ${base.diameter}) — ${euro(base.price)}
-Abat-jour : ${shade.family} ${shade.size} (${shade.ref}, Ø ${shade.diameter}) — ${euro(shade.price)}
-Cordon : ${cordon.name} — ${euro(cordon.price)}
-Filtre : ${filter.name} — ${euro(filter.price)}
-Coloris : ${color}
-Total public TVAC : ${euro(total)}`;
+  const summary = useMemo(() => `Composition Lodri / Kumo
+Base : ${base.clientName} ${base.size} (${base.ref}, Ø ${base.diameter}) — ${euro(base.price)} · coloris ${baseColor.name}
+Abat-jour : ${shade.clientName} ${shade.size} (${shade.ref}, Ø ${shade.diameter}) — ${euro(shade.price)} · coloris ${shadeColor.name}
+Cordon : ${cordon.name} — ${euro(cordon.price)} · coloris ${cordColor.name}
+Filtre : ${filter.name} — ${euro(filter.price)}${filter.id !== 'none' ? ` · coloris ${filterColor.name}` : ''}
+Total public TVAC : ${euro(total)}
+Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, filterColor, cordColor, total]);
 
   async function copy() {
     await navigator.clipboard.writeText(summary);
@@ -445,101 +571,114 @@ Total public TVAC : ${euro(total)}`;
     setShadeRef(shades.find(x => x.family === f).ref);
   }
 
+  const mailHref = `mailto:lodri@lodri.be?subject=${encodeURIComponent('Composition Lodri / Kumo')}&body=${encodeURIComponent(summary)}`;
+
   return (
     <main>
       <section className="hero">
-        <p className="pill">Configurateur maison · V4 avec previews</p>
-        <h1>Composer une lampe Lodri / Kumo</h1>
-        <p>Prix publics TVAC cohérents boutique / site / vente directe. Plafond conseillé : 250 € pour une lampe complète avec cordon standard.</p>
+        <div>
+          <p className="pill">Configurateur maison · V5</p>
+          <h1>Composer une lampe Lodri / Kumo</h1>
+          <p>Une base, un abat-jour, un cordon, éventuellement un filtre lumineux. Les prix sont publics TVAC et cohérents entre boutique, site et vente directe.</p>
+        </div>
+        <button className="smallButton" onClick={() => setShowWorkshop(!showWorkshop)}>{showWorkshop ? <EyeOff size={17} /> : <Eye size={17} />} {showWorkshop ? 'Masquer atelier' : 'Voir atelier'}</button>
       </section>
 
       <section className="layout">
         <div className="card">
-          <h2>Base</h2>
+          <h2>1. Choisir la base</h2>
           <div className="fields">
             <label>Collection
               <select value={baseFamily} onChange={e => changeBaseFamily(e.target.value)}>
                 {families(bases).map(f => <option key={f}>{f}</option>)}
               </select>
             </label>
-            <label>Référence atelier
+            <label>Format
               <select value={base.ref} onChange={e => setBaseRef(e.target.value)}>
-                {baseOptions.map(x => <option key={x.ref} value={x.ref}>{x.ref} · {x.size} · {euro(x.price)}</option>)}
+                {baseOptions.map(x => <option key={x.ref} value={x.ref}>{x.clientName} · {x.ref} · {x.size} · {euro(x.price)}</option>)}
               </select>
             </label>
           </div>
+          <SwatchPicker title="Couleur de la base" items={baseColors} selected={baseColor} onSelect={setBaseColor} />
 
-          <h2>Abat-jour</h2>
+          <h2>2. Choisir l’abat-jour</h2>
           <div className="fields">
             <label>Collection
               <select value={shadeFamily} onChange={e => changeShadeFamily(e.target.value)}>
                 {families(shades).map(f => <option key={f}>{f}</option>)}
               </select>
             </label>
-            <label>Référence atelier
+            <label>Format
               <select value={shade.ref} onChange={e => setShadeRef(e.target.value)}>
-                {shadeOptions.map(x => <option key={x.ref} value={x.ref}>{x.ref} · {x.size} · {euro(x.price)}</option>)}
+                {shadeOptions.map(x => <option key={x.ref} value={x.ref}>{x.clientName} · {x.ref} · {x.size} · {euro(x.price)}</option>)}
               </select>
             </label>
           </div>
+          <SwatchPicker title="Couleur de l’abat-jour" items={lightColors} selected={shadeColor} onSelect={setShadeColor} type="translucent" />
 
-          <h2>Finitions</h2>
-          <div className="fields three">
+          <h2>3. Finitions</h2>
+          <div className="fields">
             <label>Cordon
               <select value={cordonId} onChange={e => setCordonId(e.target.value)}>
                 {cordons.map(x => <option key={x.id} value={x.id}>{x.name} · {euro(x.price)}</option>)}
               </select>
             </label>
-            <label>Filtre
+            <label>Filtre lumineux
               <select value={filterId} onChange={e => setFilterId(e.target.value)}>
                 {filters.map(x => <option key={x.id} value={x.id}>{x.name} · {euro(x.price)}</option>)}
               </select>
             </label>
-            <label>Coloris
-              <select value={color} onChange={e => setColor(e.target.value)}>
-                {colors.map(x => <option key={x}>{x}</option>)}
-              </select>
-            </label>
           </div>
 
-          <div className="atelier">
-            <h2>Repères atelier</h2>
-            <p><strong>Base :</strong> {base.family} · {base.ref} · Ø {base.diameter} · taille {base.size} · {base.tier}</p>
-            <p><strong>Abat-jour :</strong> {shade.family} · {shade.ref} · Ø {shade.diameter} · taille {shade.size} · {shade.tier}</p>
-          </div>
+          <SwatchPicker title="Couleur du cordon" items={cordColors} selected={cordColor} onSelect={setCordColor} />
+          {filter.id !== 'none' && (
+            <SwatchPicker title="Couleur du filtre translucide" items={lightColors} selected={filterColor} onSelect={setFilterColor} type="translucent" />
+          )}
+
+          {showWorkshop && (
+            <div className="atelier">
+              <h2>Repères atelier</h2>
+              <p><strong>Base :</strong> {base.family} · {base.ref} · Ø {base.diameter} · taille {base.size} · {base.tier}</p>
+              <p><strong>Abat-jour :</strong> {shade.family} · {shade.ref} · Ø {shade.diameter} · taille {shade.size} · {shade.tier}</p>
+              <p><strong>Note :</strong> Edamame est affiché comme Solo, Duo ou Trio côté client.</p>
+            </div>
+          )}
         </div>
 
         <aside>
           <div className="previewCard">
             <div className="previewTitle">Prévisualisation client</div>
             <div className="previewImages">
-              <div className="previewItem">
-                <img src={`/previews/shades/${shade.image}`} alt={`Abat-jour ${shade.family}`} />
-                <span>Abat-jour</span>
-              </div>
+              <PreviewImage item={shade} folder="shades" color={shadeColor} label={shade.clientName} />
               <div className="plus">+</div>
-              <div className="previewItem">
-                <img src={`/previews/bases/${base.image}`} alt={`Base ${base.family}`} />
-                <span>Base</span>
-              </div>
+              <PreviewImage item={base} folder="bases" color={baseColor} label={base.clientName} stacked={base.modules || 1} />
             </div>
             {filter.image && (
               <div className="filterPreview">
                 <img src={filter.image} alt={filter.name} />
-                <span>{filter.name}</span>
+                <div>
+                  <strong>{filter.name}</strong>
+                  <span>{filterColor.name}</span>
+                </div>
               </div>
             )}
+            <p className="previewDisclaimer">Les couleurs sont indicatives : elles servent à composer l’ambiance avant validation ensemble.</p>
           </div>
 
           <div className="card">
             <h2>Composition</h2>
-            <div className="line"><span>Base {base.family} {base.size}</span><strong>{euro(base.price)}</strong></div>
-            <div className="line"><span>Abat-jour {shade.family} {shade.size}</span><strong>{euro(shade.price)}</strong></div>
+            <div className="line"><span>Base {base.clientName} {base.size}</span><strong>{euro(base.price)}</strong></div>
+            <div className="line subtle"><span>Couleur base</span><strong>{baseColor.name}</strong></div>
+            <div className="line"><span>Abat-jour {shade.clientName} {shade.size}</span><strong>{euro(shade.price)}</strong></div>
+            <div className="line subtle"><span>Couleur abat-jour</span><strong>{shadeColor.name}</strong></div>
             <div className="line"><span>{cordon.name}</span><strong>{euro(cordon.price)}</strong></div>
+            <div className="line subtle"><span>Couleur cordon</span><strong>{cordColor.name}</strong></div>
             <div className="line"><span>{filter.name}</span><strong>{euro(filter.price)}</strong></div>
+            {filter.id !== 'none' && <div className="line subtle"><span>Couleur filtre</span><strong>{filterColor.name}</strong></div>}
             <div className={total > 250 ? 'warning' : 'ok'}>{total > 250 ? 'Attention : dépasse 250 €' : 'Sous le plafond conseillé de 250 €'}</div>
             <div className="total"><span>Total TVAC</span><strong>{euro(total)}</strong></div>
             <button onClick={copy}>{copied ? <Check size={18}/> : <Copy size={18}/>} {copied ? 'Copié' : 'Copier le récap'}</button>
+            <a className="mailButton" href={mailHref}><Mail size={18} /> Me contacter pour finaliser</a>
           </div>
         </aside>
       </section>
