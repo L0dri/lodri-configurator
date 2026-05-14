@@ -57,3 +57,13 @@ aside { display: grid; gap: 24px; align-content: start; }
   .layout, .fields, .previewImages { grid-template-columns: 1fr; }
   .plus { text-align: center; }
 }
+
+.infoNote {
+  border-radius: 14px;
+  padding: 10px 12px;
+  margin-top: 14px;
+  font-weight: 700;
+  background: #f6f1ea;
+  color: #6b6258;
+  line-height: 1.35;
+}

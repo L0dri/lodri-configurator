@@ -622,7 +622,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
         <div>
           <p className="pill">Configurateur maison · V6</p>
           <h1>Composer une lampe Lodri / Kumo</h1>
-          <p>Une base, un abat-jour, un cordon, éventuellement un filtre lumineux. Les prix sont publics TVAC et cohérents entre boutique, site et vente directe.</p>
+          <p>Une base, un abat-jour, un cordon, éventuellement un filtre lumineux. Les prix sont publics TVAC et cohérents entre boutique, site et vente directe. Les couleurs sont indicatives et peuvent être adaptées sur demande.</p>
         </div>
         <button className="smallButton" onClick={() => setShowWorkshop(!showWorkshop)}>{showWorkshop ? <EyeOff size={17} /> : <Eye size={17} />} {showWorkshop ? 'Masquer atelier' : 'Voir atelier'}</button>
       </section>
@@ -720,7 +720,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
             <div className="line subtle"><span>Couleur cordon</span><strong>{cordColor.name}</strong></div>
             <div className="line"><span>{filter.name}</span><strong>{euro(filter.price)}</strong></div>
             {filter.id !== 'none' && <div className="line subtle"><span>Couleur filtre</span><strong>{filterColor.name}</strong></div>}
-            <div className={total > 250 ? 'warning' : 'ok'}>{total > 250 ? 'Attention : dépasse 250 €' : 'Sous le plafond conseillé de 250 €'}</div>
+            <div className="infoNote">Le prix final sera confirmé ensemble selon les couleurs, matières et finitions choisies.</div>
             <div className="total"><span>Total TVAC</span><strong>{euro(total)}</strong></div>
             <button onClick={copy}>{copied ? <Check size={18}/> : <Copy size={18}/>} {copied ? 'Copié' : 'Copier le récap'}</button>
             <a className="mailButton" href={mailHref}><Mail size={18} /> Me contacter pour finaliser</a>
