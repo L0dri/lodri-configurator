@@ -1,5 +1,5 @@
 
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Copy, Check, Mail, Eye, EyeOff } from 'lucide-react';
 import './style.css';
@@ -550,14 +550,13 @@ function SwatchPicker({ title, items, selected, onSelect, type = 'solid' }) {
 
 
 
-function ColorPicker({ title, selected, onSelect }) {
+function ColorWheel({ title, selected, onSelect }) {
   function chooseColor(hex) {
     onSelect({
       ...selected,
       id: 'custom',
       name: 'Couleur personnalisée',
       hex,
-      filter: selected.filter || 'none',
       note: `Code HEX : ${hex}`
     });
   }
@@ -584,148 +583,22 @@ function ColorPicker({ title, selected, onSelect }) {
   );
 }
 
-function CableColorSelect({ title, items, selected, onSelect }) {
-  return (
-    <label className="cableColorSelect">
-      {title}
-      <div className="cableSelectRow">
-        <span className="selectedDot" style={{ backgroundColor: selected.hex }} />
-        <select value={selected.id} onChange={e => onSelect(items.find(item => item.id === e.target.value))}>
-          {items.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
-        </select>
-      </div>
-      <small>Couleur textile indicative, à confirmer selon disponibilité.</small>
-    </label>
-  );
-}
-
-
-function hexToRgb(hex) {
-  const clean = (hex || '#cccccc').replace('#', '');
-  const value = parseInt(clean, 16);
-  return {
-    r: (value >> 16) & 255,
-    g: (value >> 8) & 255,
-    b: value & 255
-  };
-}
-
-function getPixel(data, width, x, y) {
-  const idx = (y * width + x) * 4;
-  return { r: data[idx], g: data[idx + 1], b: data[idx + 2], a: data[idx + 3] };
-}
-
-function distance(a, b) {
-  return Math.sqrt(
-    Math.pow(a.r - b.r, 2) +
-    Math.pow(a.g - b.g, 2) +
-    Math.pow(a.b - b.b, 2)
-  );
-}
-
-function TintedCanvas({ src, color, className, alt }) {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.src = src;
-
-    img.onload = () => {
-      const maxSize = 520;
-      const ratio = Math.min(maxSize / img.width, maxSize / img.height, 1);
-      const width = Math.max(1, Math.round(img.width * ratio));
-      const height = Math.max(1, Math.round(img.height * ratio));
-
-      canvas.width = width;
-      canvas.height = height;
-      canvas.style.width = '100%';
-      canvas.style.height = '185px';
-
-      ctx.clearRect(0, 0, width, height);
-      ctx.drawImage(img, 0, 0, width, height);
-
-      const imageData = ctx.getImageData(0, 0, width, height);
-      const data = imageData.data;
-      const rgb = hexToRgb(color.hex);
-
-      // Background estimate from corners.
-      const bgPixels = [
-        getPixel(data, width, 0, 0),
-        getPixel(data, width, width - 1, 0),
-        getPixel(data, width, 0, height - 1),
-        getPixel(data, width, width - 1, height - 1)
-      ];
-      const bg = bgPixels.reduce((acc, p) => ({
-        r: acc.r + p.r / bgPixels.length,
-        g: acc.g + p.g / bgPixels.length,
-        b: acc.b + p.b / bgPixels.length
-      }), { r: 0, g: 0, b: 0 });
-
-      for (let i = 0; i < data.length; i += 4) {
-        const p = { r: data[i], g: data[i + 1], b: data[i + 2], a: data[i + 3] };
-        const brightness = (p.r + p.g + p.b) / 3;
-        const bgDistance = distance(p, bg);
-
-        // Make background transparent. Tolerance is generous because screenshots have antialiasing.
-        if (p.a < 10 || bgDistance < 12 || brightness < 8) {
-          data[i + 3] = 0;
-          continue;
-        }
-
-        // Preserve object shading.
-        const shade = Math.max(0.32, Math.min(1.35, brightness / 170));
-
-        data[i] = Math.min(255, Math.round(rgb.r * shade));
-        data[i + 1] = Math.min(255, Math.round(rgb.g * shade));
-        data[i + 2] = Math.min(255, Math.round(rgb.b * shade));
-        data[i + 3] = Math.min(255, Math.round(p.a * 0.98));
-      }
-
-      ctx.putImageData(imageData, 0, 0);
-    };
-
-    img.onerror = () => {
-      canvas.width = 220;
-      canvas.height = 160;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    };
-  }, [src, color.hex]);
-
-  return <canvas ref={canvasRef} className={className} aria-label={alt} role="img" />;
-}
-
-
-
 function PreviewImage({ item, folder, color, stacked = 1, label }) {
   const count = Math.max(1, stacked || 1);
-  const imageUrl = `/previews/${folder}/${item.image}`;
-
   return (
     <div className={`previewItem stacked stacked-${count}`}>
       <div className="imageStack">
         {Array.from({ length: count }).map((_, index) => (
-          <div key={`${index}-${color.hex}-${imageUrl}`} className={`previewLayer module-${index + 1}`}>
-            <img
-              className="previewOriginal"
-              src={imageUrl}
-              alt={label}
-            />
-            <TintedCanvas
-              className="previewCanvasOverlay"
-              src={imageUrl}
-              color={color}
-              alt={label}
-            />
-          </div>
+          <img
+            key={index}
+            className={`previewImg module-${index + 1}`}
+            src={`/previews/${folder}/${item.image}`}
+            alt={label}
+          />
         ))}
       </div>
       <span>{label}</span>
-      <small><i style={{ backgroundColor: color.hex }} />{color.name}</small>
+      <small><i style={{ backgroundColor: color.hex }} />{color.name} · {color.hex}</small>
     </div>
   );
 }
@@ -806,7 +679,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
               </select>
             </label>
           </div>
-          <ColorPicker title="Couleur de la base" selected={baseColor} onSelect={setBaseColor} />
+          <ColorWheel title="Couleur de la base" selected={baseColor} onSelect={setBaseColor} />
           <MiniPreview title="Base choisie" item={base} folder="bases" color={baseColor} stacked={base.modules || 1} />
         </div>
 
@@ -824,7 +697,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
               </select>
             </label>
           </div>
-          <ColorPicker title="Couleur de l’abat-jour" selected={shadeColor} onSelect={setShadeColor} />
+          <ColorWheel title="Couleur de l’abat-jour" selected={shadeColor} onSelect={setShadeColor} />
           <MiniPreview title="Abat-jour choisi" item={shade} folder="shades" color={shadeColor} />
         </div>
 
@@ -844,7 +717,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
                 {filters.map(x => <option key={x.id} value={x.id}>{x.name} · {euro(x.price)}</option>)}
               </select>
             </label>
-            {filter.id !== 'none' && <ColorPicker title="Couleur du filtre" selected={filterColor} onSelect={setFilterColor} />}
+            {filter.id !== 'none' && <ColorWheel title="Couleur du filtre" selected={filterColor} onSelect={setFilterColor} />}
           </div>
         </div>
 

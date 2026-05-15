@@ -313,57 +313,7 @@ aside { display: grid; gap: 24px; align-content: start; }
   font-weight: 500;
 }
 
-/* V8 — recoloration via canvas : le fond noir est ignoré, la pièce prend la couleur choisie. */
-.previewCanvas {
-  position: absolute;
-  max-width: 100%;
-  max-height: 185px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 12px 16px rgba(0,0,0,.16));
-}
-
-.stacked-2 .previewCanvas.module-1 { transform: translateY(22px) scale(.96); }
-.stacked-2 .previewCanvas.module-2 { transform: translateY(-24px) scale(.96); }
-.stacked-3 .previewCanvas.module-1 { transform: translateY(42px) scale(.92); }
-.stacked-3 .previewCanvas.module-2 { transform: translateY(0px) scale(.92); }
-.stacked-3 .previewCanvas.module-3 { transform: translateY(-42px) scale(.92); }
-
-.filterCanvas {
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
-  filter: drop-shadow(0 8px 10px rgba(0,0,0,.14));
-}
-
-.previewItem small {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.previewItem small i {
-  width: 15px;
-  height: 15px;
-  border-radius: 999px;
-  border: 1px solid rgba(0,0,0,.18);
-  display: inline-block;
-  flex: 0 0 auto;
-}
-
-.infoNote {
-  border-radius: 14px;
-  padding: 10px 12px;
-  margin-top: 14px;
-  font-weight: 700;
-  background: #f6f1ea;
-  color: #6b6258;
-  line-height: 1.35;
-}
-
-/* V8.1 — roue chromatique libre + code HEX. */
+/* V7.9 — roue chromatique + code HEX, sans recoloration des pièces. */
 .colorWheelBlock {
   background: #f8f4ee;
   border: 1px solid #ece3d7;
@@ -371,151 +321,27 @@ aside { display: grid; gap: 24px; align-content: start; }
   padding: 14px;
   margin: 10px 0 18px;
 }
-
-.colorWheelTitle {
-  font-weight: 900;
-  color: #6f665c;
-  margin-bottom: 12px;
-}
-
-.colorWheelRow {
-  display: grid;
-  grid-template-columns: 62px 1fr;
-  gap: 12px;
-  align-items: center;
-}
-
-.colorWheelBox {
-  position: relative;
-  display: block;
-  width: 56px;
-  height: 56px;
-  padding: 0;
-  cursor: pointer;
-}
-
-.colorWheelBox input[type="color"] {
-  position: absolute;
-  inset: 0;
-  width: 56px;
-  height: 56px;
-  opacity: 0;
-  cursor: pointer;
-  border: 0;
-  padding: 0;
-}
-
+.colorWheelTitle { font-weight: 900; color: #6f665c; margin-bottom: 12px; }
+.colorWheelRow { display: grid; grid-template-columns: 62px 1fr; gap: 12px; align-items: center; }
+.colorWheelBox { position: relative; display: block; width: 56px; height: 56px; padding: 0; cursor: pointer; }
+.colorWheelBox input[type="color"] { position: absolute; inset: 0; width: 56px; height: 56px; opacity: 0; cursor: pointer; border: 0; padding: 0; }
 .colorWheelBox span {
-  display: block;
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
+  display: block; width: 56px; height: 56px; border-radius: 18px;
   border: 1px solid rgba(0,0,0,.22);
   box-shadow: inset 0 0 0 5px rgba(255,255,255,.22), 0 8px 18px rgba(0,0,0,.08);
 }
-
-.colorWheelInfo {
-  display: grid;
-  gap: 4px;
-}
-
+.colorWheelInfo { display: grid; gap: 4px; }
 .colorWheelInfo code {
-  width: fit-content;
-  background: white;
-  border: 1px solid #e5ded4;
-  padding: 4px 8px;
-  border-radius: 999px;
-  color: #252525;
+  width: fit-content; background: white; border: 1px solid #e5ded4;
+  padding: 4px 8px; border-radius: 999px; color: #252525;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
-
-.colorWheelInfo small,
-.cableColorSelect small {
-  color: #756b60;
-  font-size: 13px;
+.colorWheelInfo small { color: #756b60; font-size: 13px; }
+.previewItem small {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px; flex-wrap: wrap;
 }
-
-.cableColorSelect {
-  display: grid;
-  gap: 8px;
-  font-weight: 700;
-  color: #6f665c;
-  margin-bottom: 18px;
+.previewItem small i {
+  width: 15px; height: 15px; border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.18); display: inline-block; flex: 0 0 auto;
 }
-
-.cableSelectRow {
-  display: grid;
-  grid-template-columns: 34px 1fr;
-  align-items: center;
-  gap: 10px;
-}
-
-.selectedDot {
-  width: 26px;
-  height: 26px;
-  border-radius: 999px;
-  border: 1px solid rgba(0,0,0,.2);
-  box-shadow: inset 0 0 0 4px rgba(255,255,255,.18);
-}
-
-/* V8.3 — canvas corrigé. */
-.previewCanvas {
-  position: absolute;
-  display: block;
-  width: 100% !important;
-  height: 185px !important;
-  object-fit: contain;
-  filter: drop-shadow(0 12px 16px rgba(0,0,0,.16));
-}
-
-.imageStack {
-  min-height: 190px;
-}
-
-.stacked-2 .previewCanvas.module-1 { transform: translateY(22px) scale(.96); }
-.stacked-2 .previewCanvas.module-2 { transform: translateY(-24px) scale(.96); }
-.stacked-3 .previewCanvas.module-1 { transform: translateY(42px) scale(.92); }
-.stacked-3 .previewCanvas.module-2 { transform: translateY(0px) scale(.92); }
-.stacked-3 .previewCanvas.module-3 { transform: translateY(-42px) scale(.92); }
-
-.filterCanvas {
-  width: 70px !important;
-  height: 70px !important;
-  object-fit: contain;
-}
-
-/* V8.4 — sécurité : l’image originale reste visible, la couleur vient par-dessus. */
-.previewLayer {
-  position: absolute;
-  width: 100%;
-  height: 185px;
-  display: grid;
-  place-items: center;
-}
-
-.previewOriginal,
-.previewCanvasOverlay {
-  grid-area: 1 / 1;
-  max-width: 100%;
-  max-height: 185px;
-  object-fit: contain;
-  display: block;
-  filter: drop-shadow(0 12px 16px rgba(0,0,0,.12));
-}
-
-.previewOriginal {
-  opacity: .42;
-  filter: grayscale(.8) brightness(1.08) contrast(.95) drop-shadow(0 12px 16px rgba(0,0,0,.10));
-}
-
-.previewCanvasOverlay {
-  opacity: .92;
-  width: 100% !important;
-  height: 185px !important;
-}
-
-.stacked-2 .previewLayer.module-1 { transform: translateY(22px) scale(.96); }
-.stacked-2 .previewLayer.module-2 { transform: translateY(-24px) scale(.96); }
-.stacked-3 .previewLayer.module-1 { transform: translateY(42px) scale(.92); }
-.stacked-3 .previewLayer.module-2 { transform: translateY(0px) scale(.92); }
-.stacked-3 .previewLayer.module-3 { transform: translateY(-42px) scale(.92); }
