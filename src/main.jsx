@@ -2284,9 +2284,9 @@ function CableColorSelect({ title, items, selected, onSelect }) {
   );
 }
 
+
 function PreviewImage({ item, folder, color, stacked = 1, label }) {
   const count = Math.max(1, stacked || 1);
-  const transformValue = item.visualScale ? `scaleY(${item.visualScale})` : undefined;
 
   return (
     <div className={`previewItem stacked stacked-${count}`}>
@@ -2297,7 +2297,6 @@ function PreviewImage({ item, folder, color, stacked = 1, label }) {
             className={`previewImg module-${index + 1}`}
             src={`/previews/${folder}/${item.image}`}
             alt={label}
-            style={count === 1 && transformValue ? { transform: transformValue } : undefined}
           />
         ))}
       </div>
@@ -2375,7 +2374,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
     <main>
       <section className="hero">
         <div>
-          <p className="pill">Configurateur maison · V9.2</p>
+          <p className="pill">Configurateur maison · V9.3</p>
           <h1>Composer une lampe Lodri / Kumo</h1>
           <p>Choisis une base, un abat-jour, un cordon et éventuellement un filtre lumineux. Les dimensions Ø × H sont affichées pour mieux visualiser les proportions. Les couleurs sont indicatives et peuvent être adaptées sur demande.</p>
         </div>
