@@ -2285,8 +2285,28 @@ function CableColorSelect({ title, items, selected, onSelect }) {
 }
 
 
+
+function getPreviewSources(item, folder) {
+  const generic = `/previews/${folder}/${item.image}`;
+  if (folder === 'bases' && item.diameter && item.height && /^\d+ mm$/.test(item.height)) {
+    const diameter = item.diameter.replace(' mm', '').toLowerCase();
+    const height = item.height.replace(' mm', '').toLowerCase();
+    const baseSlug = (item.family || '')
+      .toLowerCase()
+      .replace('cone wide', 'cone-wide')
+      .replace('totem base', 'totem')
+      .replace('edamame base', 'edamame')
+      .replace(/\s+/g, '-');
+    const precise = `/previews/${folder}/${baseSlug}-d${diameter}-h${height}.png`;
+    return [precise, generic];
+  }
+  return [generic];
+}
+
+
 function PreviewImage({ item, folder, color, stacked = 1, label }) {
   const count = Math.max(1, stacked || 1);
+  const sources = getPreviewSources(item, folder);
 
   return (
     <div className={`previewItem stacked stacked-${count}`}>
@@ -2295,7 +2315,12 @@ function PreviewImage({ item, folder, color, stacked = 1, label }) {
           <img
             key={index}
             className={`previewImg module-${index + 1}`}
-            src={`/previews/${folder}/${item.image}`}
+            src={sources[0]}
+            onError={e => {
+              if (sources[1] && e.currentTarget.src.indexOf(sources[1]) === -1) {
+                e.currentTarget.src = sources[1];
+              }
+            }}
             alt={label}
           />
         ))}
@@ -2305,7 +2330,6 @@ function PreviewImage({ item, folder, color, stacked = 1, label }) {
     </div>
   );
 }
-
 
 function MiniPreview({ title, item, folder, color, stacked = 1 }) {
   return (
@@ -2317,7 +2341,7 @@ function MiniPreview({ title, item, folder, color, stacked = 1 }) {
         </div>
         <em>{euro(item.price)}</em>
       </div>
-      <PreviewImage item={item} folder={folder} color={color} label={item.clientName} stacked={stacked} />
+      <PreviewImage item={item} folder={folder} color={color} label={item.clientName} stacked={stacked} />\n      <p className="previewCaution">Visuel indicatif si la preview exacte de hauteur n’est pas disponible.</p>
     </div>
   );
 }
@@ -2374,7 +2398,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
     <main>
       <section className="hero">
         <div>
-          <p className="pill">Configurateur maison · V9.3</p>
+          <p className="pill">Configurateur maison · V9.4</p>
           <h1>Composer une lampe Lodri / Kumo</h1>
           <p>Choisis une base, un abat-jour, un cordon et éventuellement un filtre lumineux. Les dimensions Ø × H sont affichées pour mieux visualiser les proportions. Les couleurs sont indicatives et peuvent être adaptées sur demande.</p>
         </div>
