@@ -2307,6 +2307,22 @@ function PreviewImage({ item, folder, color, stacked = 1, label }) {
   );
 }
 
+
+function MiniPreview({ title, item, folder, color, stacked = 1 }) {
+  return (
+    <div className="miniPreview">
+      <div className="miniPreviewHeader">
+        <div>
+          <strong>{title}</strong>
+          <span>{item.clientName} · Ø {item.diameter} × H {item.height}</span>
+        </div>
+        <em>{euro(item.price)}</em>
+      </div>
+      <PreviewImage item={item} folder={folder} color={color} label={item.clientName} stacked={stacked} />
+    </div>
+  );
+}
+
 function App() {
   const [baseFamily, setBaseFamily] = useState('Cone');
   const [shadeFamily, setShadeFamily] = useState('Honeycomb');
@@ -2330,8 +2346,8 @@ function App() {
   const total = base.price + shade.price + cordon.price + filter.price;
 
   const summary = useMemo(() => `Composition Lodri / Kumo
-Base : ${base.clientName} ${base.size} (${base.ref}, Ø ${base.diameter}, H ${base.height}) — ${euro(base.price)} · coloris ${baseColor.name} (${baseColor.hex}) (${baseColor.hex})
-Abat-jour : ${shade.clientName} ${shade.size} (${shade.ref}, Ø ${shade.diameter}, H ${shade.height}) — ${euro(shade.price)} · coloris ${shadeColor.name} (${shadeColor.hex}) (${shadeColor.hex})
+Base : ${base.clientName} ${base.size} (${base.ref}, Ø ${base.diameter}, H ${base.height}) — ${euro(base.price)} · coloris ${baseColor.name} (${baseColor.hex})
+Abat-jour : ${shade.clientName} ${shade.size} (${shade.ref}, Ø ${shade.diameter}, H ${shade.height}) — ${euro(shade.price)} · coloris ${shadeColor.name} (${shadeColor.hex})
 Cordon : ${cordon.name} — ${euro(cordon.price)} · coloris ${cordColor.name}
 Filtre : ${filter.name} — ${euro(filter.price)}${filter.id !== 'none' ? ` · coloris ${filterColor.name} (${filterColor.hex})` : ''}
 Total public TVAC : ${euro(total)}
@@ -2359,7 +2375,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
     <main>
       <section className="hero">
         <div>
-          <p className="pill">Configurateur maison · V7</p>
+          <p className="pill">Configurateur maison · V9.2</p>
           <h1>Composer une lampe Lodri / Kumo</h1>
           <p>Choisis une base, un abat-jour, un cordon et éventuellement un filtre lumineux. Les dimensions Ø × H sont affichées pour mieux visualiser les proportions. Les couleurs sont indicatives et peuvent être adaptées sur demande.</p>
         </div>
