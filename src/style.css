@@ -345,3 +345,16 @@ aside { display: grid; gap: 24px; align-content: start; }
   width: 15px; height: 15px; border-radius: 999px;
   border: 1px solid rgba(0,0,0,.18); display: inline-block; flex: 0 0 auto;
 }
+
+/* V9 — dimensions visibles : les bases simples sont légèrement mises à l’échelle selon la hauteur choisie. */
+.previewImg {
+  transform-origin: center bottom;
+}
+
+.miniPreviewHeader span {
+  line-height: 1.35;
+}
+
+.line.subtle strong {
+  text-align: right;
+}
