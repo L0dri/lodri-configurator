@@ -2268,6 +2268,22 @@ function ColorWheel({ title, selected, onSelect }) {
 }
 
 
+
+function CableColorSelect({ title, items, selected, onSelect }) {
+  return (
+    <label className="cableColorSelect">
+      {title}
+      <div className="cableSelectRow">
+        <span className="selectedDot" style={{ backgroundColor: selected.hex }} />
+        <select value={selected.id} onChange={e => onSelect(items.find(item => item.id === e.target.value))}>
+          {items.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
+        </select>
+      </div>
+      <small>Couleur textile indicative, à confirmer selon disponibilité.</small>
+    </label>
+  );
+}
+
 function PreviewImage({ item, folder, color, stacked = 1, label }) {
   const count = Math.max(1, stacked || 1);
   const transformValue = item.visualScale ? `scaleY(${item.visualScale})` : undefined;
