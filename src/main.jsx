@@ -2000,7 +2000,7 @@ const bases = [
     "modules": 3,
     "visualScale": null
   }
-];
+].map((item, index) => ({ ...item, uid: `${item.family}-${item.ref}-${item.height || ''}-${index}` }));
 const shades = [
   {
     "family": "Squash",
@@ -2156,7 +2156,7 @@ const shades = [
     "price": 119,
     "image": "edamame-d160.png"
   }
-];
+].map((item, index) => ({ ...item, uid: `${item.family}-${item.ref}-${item.height || ''}-${index}` }));
 
 const baseColors = [
   { id: 'blanc', name: 'Blanc', hex: '#F4F1EA', filter: 'brightness(1.32) saturate(.45)', note: 'neutre lumineux' },
@@ -2341,7 +2341,7 @@ function MiniPreview({ title, item, folder, color, stacked = 1 }) {
         </div>
         <em>{euro(item.price)}</em>
       </div>
-      <PreviewImage item={item} folder={folder} color={color} label={item.clientName} stacked={stacked} />\n      <p className="previewCaution">Visuel indicatif si la preview exacte de hauteur n’est pas disponible.</p>
+      <PreviewImage item={item} folder={folder} color={color} label={item.clientName} stacked={stacked} />\n      <p className="previewCaution">Visuel indicatif de la famille de forme. Le prix et les dimensions affichés font foi.</p>
     </div>
   );
 }
@@ -2349,8 +2349,8 @@ function MiniPreview({ title, item, folder, color, stacked = 1 }) {
 function App() {
   const [baseFamily, setBaseFamily] = useState('Cone');
   const [shadeFamily, setShadeFamily] = useState('Honeycomb');
-  const [baseRef, setBaseRef] = useState('D100');
-  const [shadeRef, setShadeRef] = useState('D175');
+  const [baseUid, setBaseUid] = useState('');
+  const [shadeUid, setShadeUid] = useState('');
   const [cordonId, setCordonId] = useState('standard');
   const [filterId, setFilterId] = useState('none');
   const [baseColor, setBaseColor] = useState(baseColors[8]);
@@ -2362,8 +2362,8 @@ function App() {
 
   const baseOptions = bases.filter(x => x.family === baseFamily);
   const shadeOptions = shades.filter(x => x.family === shadeFamily);
-  const base = baseOptions.find(x => x.ref === baseRef) || baseOptions[0];
-  const shade = shadeOptions.find(x => x.ref === shadeRef) || shadeOptions[0];
+  const base = baseOptions.find(x => x.uid === baseUid) || baseOptions[0];
+  const shade = shadeOptions.find(x => x.uid === shadeUid) || shadeOptions[0];
   const cordon = cordons.find(x => x.id === cordonId) || cordons[0];
   const filter = filters.find(x => x.id === filterId) || filters[0];
   const total = base.price + shade.price + cordon.price + filter.price;
@@ -2384,12 +2384,12 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
 
   function changeBaseFamily(f) {
     setBaseFamily(f);
-    setBaseRef(bases.find(x => x.family === f).ref);
+    setBaseUid('');
   }
 
   function changeShadeFamily(f) {
     setShadeFamily(f);
-    setShadeRef(shades.find(x => x.family === f).ref);
+    setShadeUid('');
   }
 
   const mailHref = `mailto:lodri@lodri.be?subject=${encodeURIComponent('Composition Lodri / Kumo')}&body=${encodeURIComponent(summary)}`;
@@ -2398,7 +2398,7 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
     <main>
       <section className="hero">
         <div>
-          <p className="pill">Configurateur maison · V9.4</p>
+          <p className="pill">Configurateur maison · V9.5.5</p>
           <h1>Composer une lampe Lodri / Kumo</h1>
           <p>Choisis une base, un abat-jour, un cordon et éventuellement un filtre lumineux. Les dimensions Ø × H sont affichées pour mieux visualiser les proportions. Les couleurs sont indicatives et peuvent être adaptées sur demande.</p>
         </div>
@@ -2417,12 +2417,13 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
               </select>
             </label>
             <label>Format
-              <select value={base.ref} onChange={e => setBaseRef(e.target.value)}>
-                {baseOptions.map(x => <option key={x.ref} value={x.ref}>{x.clientName} · Ø {x.diameter} × H {x.height} · {euro(x.price)}</option>)}
+              <select value={base.uid} onChange={e => setBaseUid(e.target.value)}>
+                {baseOptions.map((x) => <option key={x.uid} value={x.uid}>{x.clientName} · Ø {x.diameter} × H {x.height} · {x.size} · {euro(x.price)}</option>)}
               </select>
             </label>
           </div>
           <ColorWheel title="Couleur de la base" selected={baseColor} onSelect={setBaseColor} />
+          <p className="variantCount">{baseOptions.length} variante(s) disponible(s) pour cette famille.</p>
           <MiniPreview title="Base choisie" item={base} folder="bases" color={baseColor} stacked={base.modules || 1} />
         </div>
 
@@ -2435,12 +2436,13 @@ Contact : lodri@lodri.be`, [base, shade, cordon, filter, baseColor, shadeColor, 
               </select>
             </label>
             <label>Format
-              <select value={shade.ref} onChange={e => setShadeRef(e.target.value)}>
-                {shadeOptions.map(x => <option key={x.ref} value={x.ref}>{x.clientName} · {x.ref} · {x.size} · {euro(x.price)}</option>)}
+              <select value={shade.uid} onChange={e => setShadeUid(e.target.value)}>
+                {shadeOptions.map((x) => <option key={x.uid} value={x.uid}>{x.clientName} · Ø {x.diameter} × H {x.height} · {x.size} · {euro(x.price)}</option>)}
               </select>
             </label>
           </div>
           <ColorWheel title="Couleur de l’abat-jour" selected={shadeColor} onSelect={setShadeColor} />
+          <p className="variantCount">{shadeOptions.length} variante(s) disponible(s) pour cette famille.</p>
           <MiniPreview title="Abat-jour choisi" item={shade} folder="shades" color={shadeColor} />
         </div>
 

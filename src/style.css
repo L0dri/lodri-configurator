@@ -391,3 +391,11 @@ aside { display: grid; gap: 24px; align-content: start; }
   line-height: 1.35;
   text-align: center;
 }
+
+/* V9.5 — toutes les variantes visibles : dimensions + prix dans les listes. */
+.variantCount {
+  margin: -8px 0 12px;
+  color: #756b60;
+  font-size: 13px;
+  font-weight: 700;
+}
