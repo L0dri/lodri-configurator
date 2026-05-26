@@ -2670,8 +2670,13 @@ const cordColors = [
 
 const cordon = { name:'Cordon textile standard', price:19 };
 
-const bases = ITEMS.filter(x => x.type === 'Base');
-const shades = ITEMS.filter(x => x.type === 'Abat-jour');
+const enrichedItems = ITEMS.map((item, index) => ({
+  ...item,
+  uid: `${item.type}-${item.family}-${item.ref}-${item.dimensions}-${index}`
+}));
+
+const bases = enrichedItems.filter(x => x.type === 'Base');
+const shades = enrichedItems.filter(x => x.type === 'Abat-jour');
 
 const euro = n => `${n} €`;
 const families = list => [...new Set(list.map(x => x.family))];
@@ -2719,7 +2724,7 @@ function CardPreview({ item, folder, color }) {
 function Selector({ title, items, family, setFamily, selected, setSelected }) {
   const list = items.filter(x => x.family === family);
   React.useEffect(() => {
-    if (!list.find(x => x.ref === selected?.ref)) setSelected(list[0]);
+    if (!list.find(x => x.uid === selected?.uid)) setSelected(list[0]);
   }, [family]);
 
   return (
@@ -2732,15 +2737,16 @@ function Selector({ title, items, family, setFamily, selected, setSelected }) {
           </select>
         </label>
         <label>Format
-          <select value={selected?.ref || ''} onChange={e => setSelected(list.find(x => x.ref === e.target.value))}>
+          <select value={selected?.uid || ''} onChange={e => setSelected(list.find(x => x.uid === e.target.value))}>
             {list.map(x => (
-              <option key={x.ref} value={x.ref}>
+              <option key={x.uid} value={x.uid}>
                 {x.clientName} · {x.dimensions} · {euro(x.price)} · {x.status}
               </option>
             ))}
           </select>
         </label>
       </div>
+      <p className="variantCount">{list.length} variante(s) disponible(s) dans cette famille.</p>
       <div className="chosen">
         <div>
           <strong>{selected?.clientName}</strong>
