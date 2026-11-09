@@ -9,7 +9,6 @@ const filterItems = [{"ref":"D80 H200","clientName":"Filtre Ø80 H200mm","diamet
 
 const cordons = [
   { id: 'standard', name: 'Cordon tissé', price: 19 },
-  { id: 'premium', name: 'Cordon tissé premium', price: 29 },
   { id: 'led', name: 'Système LED (petites lampes)', price: 12 },
   { id: 'none', name: 'Sans cordon', price: 0 },
 ];
